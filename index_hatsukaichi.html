@@ -1,0 +1,3107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>脳にいいアプリ FAQ</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+            background: #f2f2f7;
+            color: #1c1c1e;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+        .header {
+            background: #ffffff;
+            padding: 20px;
+            margin: -16px -16px 20px -16px;
+            border-bottom: 1px solid #d1d1d6;
+        }
+        h1 {
+            color: #1c1c1e;
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            margin: 0 0 8px 0;
+        }
+        .subtitle {
+            color: #8e8e93;
+            font-size: 15px;
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .search-container {
+            margin: 0 0 20px 0;
+            position: relative;
+        }
+        .search-box {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            background: #ffffff;
+            border: 1px solid #d1d1d6;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8e8e93;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 2px solid #e9ecef;
+        }
+        .tab {
+            flex: 1;
+            padding: 12px 16px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #6c757d;
+            transition: all 0.3s ease;
+            margin: 0 2px;
+            border: 2px solid transparent;
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .tab:hover {
+            background: #f8f9fa;
+            color: #495057;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+        .tab.active {
+            background: #007aff;
+            color: #ffffff;
+            border: 2px solid #0056b3;
+            box-shadow: 0 3px 10px rgba(0,122,255,0.3);
+            transform: translateY(-2px);
+            font-weight: 700;
+        }
+        .faq-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .faq-item {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .faq-question {
+            padding: 16px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f0f8ff 100%);
+            border-left: 4px solid #2196f3;
+            position: relative;
+        }
+        .faq-question::before {
+            content: "Q";
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #2196f3;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .faq-question:hover {
+            background: linear-gradient(135deg, #bbdefb 0%, #e1f5fe 100%);
+            border-left-color: #1976d2;
+        }
+        .faq-question-text {
+            font-weight: 600;
+            color: #1565c0;
+            font-size: 16px;
+            margin-left: 32px;
+        }
+        .faq-icon {
+            transition: transform 0.2s;
+            font-size: 14px;
+            color: #2196f3;
+            font-weight: bold;
+        }
+        .faq-answer {
+            display: none;
+            padding: 16px 20px 16px 20px;
+            background: linear-gradient(135deg, #f1f8e9 0%, #f8fff0 100%);
+            border-left: 4px solid #4caf50;
+            position: relative;
+        }
+        .faq-answer::before {
+            content: "A";
+            position: absolute;
+            left: 8px;
+            top: 20px;
+            background: #4caf50;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .faq-answer.show {
+            display: block;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        .answer-content {
+            color: #2e7d32;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            margin-left: 32px;
+            font-weight: 500;
+        }
+        .answer-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-left: 32px;
+        }
+        .answer-link {
+            padding: 8px 12px;
+            background: #007aff;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+        }
+        .answer-link:hover {
+            background: #0056b3;
+        }
+        
+        /* お気に入り機能のスタイル */
+        .favorite-btn {
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 6px 12px;
+            margin-left: 8px;
+            border-radius: 6px;
+            transition: all 0.2s;
+            color: #666;
+            font-weight: 500;
+        }
+        .favorite-btn:hover {
+            background: #e0e0e0;
+            border-color: #ccc;
+        }
+        .favorite-btn.active {
+            background: #ff9800;
+            border-color: #ff9800;
+            color: white;
+        }
+        .favorite-btn.active:hover {
+            background: #f57c00;
+        }
+        
+        .favorites-section {
+            background: #fff3e0;
+            border: 1px solid #ffcc02;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 16px;
+        }
+        .favorites-title {
+            color: #e65100;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .favorites-list {
+            display: none;
+        }
+        .favorites-list.show {
+            display: block;
+        }
+        .favorite-item {
+            padding: 8px 12px;
+            background: #ffffff;
+            border: 1px solid #ffcc02;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        .favorite-item:hover {
+            background: #fff8e1;
+        }
+        .favorite-item-text {
+            flex-grow: 1;
+            font-size: 14px;
+            color: #e65100;
+        }
+        .remove-favorite {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 2px;
+        }
+        .remove-favorite:hover {
+            color: #f44336;
+        }
+        
+        /* 簡単解決ガイドのスタイル */
+        .quick-guide {
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0fff0 100%);
+            border: 2px solid #4caf50;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+        }
+        .quick-guide-title {
+            color: #2e7d32;
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .quick-guide-subtitle {
+            color: #4caf50;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        .quick-solutions {
+            display: grid;
+            gap: 12px;
+        }
+        .quick-solution-item {
+            background: #ffffff;
+            border: 1px solid #4caf50;
+            border-radius: 8px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transition: all 0.2s;
+        }
+        .quick-solution-item:hover {
+            background: #f8fff8;
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.15);
+        }
+        .quick-solution-number {
+            background: #4caf50;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .quick-solution-content {
+            flex-grow: 1;
+        }
+        .quick-solution-problem {
+            font-weight: 600;
+            color: #2e7d32;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+        .quick-solution-action {
+            color: #1b5e20;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .quick-solution-method {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .quick-solution-link {
+            background: #007aff;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .quick-solution-link:hover {
+            background: #0056b3;
+        }
+        .escalation-note {
+            background: #fff3e0;
+            border: 1px solid #ff9800;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 16px;
+            text-align: center;
+            color: #e65100;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .youtube-link {
+            background: #ff3b30;
+        }
+        .youtube-link:hover {
+            background: #d70015;
+        }
+        .faq-item.hidden {
+            display: none;
+        }
+        #imageModal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+        .modal-content {
+            display: block;
+            margin: auto;
+            max-width: 90%;
+            max-height: 90%;
+            margin-top: 5%;
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: #bbb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>脳にいいアプリ FAQ</h1>
+            <div class="subtitle">よくあるご質問</div>
+            <div class="search-container">
+                <div class="search-icon">🔍</div>
+                <input type="text" class="search-box" placeholder="質問や回答を検索..." oninput="searchFAQ(this.value)">
+            </div>
+        </div>
+        <!-- 簡単解決ガイド -->
+        <div class="quick-guide">
+            <div class="quick-guide-title">
+                <span>⚡</span>
+                <span>主な対処方法・手順</span>
+                <span>⚡</span>
+            </div>
+            <div class="quick-guide-subtitle">よくある問題のほとんどが、以下の3つの方法で解決できます</div>
+            
+            <div class="quick-solutions">
+                <div class="quick-solution-item">
+                    <div class="quick-solution-number">1</div>
+                    <div class="quick-solution-content">
+                        <div class="quick-solution-problem">アプリの動作に問題がある場合・端末が反応しない・フリーズした場合</div>
+                        <div class="quick-solution-method">
+                            <span class="quick-solution-action">→ まずは端末の再起動を実施してください</span>
+                            <button onclick="openHtmlModal('Android端末電源切る方法.html', event)" class="quick-solution-link">📱 再起動手順を見る</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quick-solution-item">
+                    <div class="quick-solution-number">2</div>
+                    <div class="quick-solution-content">
+                        <div class="quick-solution-problem">歩数がカウントされない</div>
+                        <div class="quick-solution-method">
+                            <span class="quick-solution-action">→ 最適化設定をオフにしてください　例：1024</span>
+                            <button onclick="openHtmlModal('battery-optimizer-simple.html', event)" class="quick-solution-link">📖 最適化設定手順を見る</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quick-solution-item">
+                    <div class="quick-solution-number">3</div>
+                    <div class="quick-solution-content">
+                        <div class="quick-solution-problem">画面表示が崩れる・正常に表示されない</div>
+                        <div class="quick-solution-method">
+                            <span class="quick-solution-action">→ Chrome・Android System WebView を更新 + 標準ブラウザをChromeに設定　例：1107</span>
+                            <button onclick="openHtmlModal('chrome-update-guide.html', event)" class="quick-solution-link">🖥️ Chrome設定手順を見る</button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="escalation-note">
+                💡 問題が解消しない場合、ベスプラへ連絡してください
+            </div>
+        </div>
+
+        <!-- モーダル表示エリア（タブの上に配置） -->
+        <div id="modal-area" style="margin-bottom: 20px;"></div>
+
+        <div class="tabs" id="categoryTabs">
+            <div class="tab active" onclick="filterFAQ('初期設定・申し込み', this); return false;">初期設定・...</div>
+            <div class="tab" onclick="filterFAQ('歩数・脳トレ・食事・ホーム画面', this); return false;">歩数・脳ト...</div>
+            <div class="tab" onclick="filterFAQ('全般・各種設定・ポイント', this); return false;">全般・各種...</div>
+            <div class="tab" onclick="filterFAQ('機種変更・データ引継ぎ・退会', this); return false;">機種変更・...</div>
+        </div>
+        
+        <!-- お気に入りセクション -->
+        <div class="favorites-section" id="favoritesSection" style="display: none;">
+            <div class="favorites-title">
+                <span>お気に入り登録</span>
+                <span>お気に入り</span>
+                <button onclick="toggleFavoritesList()" style="margin-left: auto; background: none; border: 1px solid #ffcc02; border-radius: 4px; padding: 4px 8px; color: #e65100; cursor: pointer; font-size: 12px;">
+                    <span id="favoritesToggleText">表示</span>
+                </button>
+            </div>
+            <div class="favorites-list" id="favoritesList">
+                <div id="favoritesEmpty" style="color: #999; font-size: 14px; text-align: center; padding: 20px;">
+                    お気に入りに登録したFAQ項目はありません
+                </div>
+                <div id="favoritesContent"></div>
+            </div>
+        </div>
+        
+        <div class="faq-container">
+<div class="faq-item" data-category="初期設定・申し込み">
+  <div class="faq-question" onclick="toggleFAQ('faq-0')">
+    <div class="faq-question-text">パスワードの入力を求められました。（Googleアカウント・Appleアカウント（旧AppleID）） <span style="color: #999; font-size: 0.8em;">#1001</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-0')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-0">
+    <div class="answer-content">Googleヘルプ、Appleサポートのリンク先を掲載</div>
+    <div class="answer-links">
+      <a href="https://support.google.com/accounts/" target="_blank" class="answer-link">🔍 Google Help</a>
+      <a href="https://support.apple.com/apple-id/" target="_blank" class="answer-link">🍎 Apple Help</a>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="初期設定・申し込み">
+  <div class="faq-question" onclick="toggleFAQ('faq-1')">
+    <div class="faq-question-text">Playストアを開くと「購入確認が設定されていません」と表示され、パスワードの入力か生体認証の設定を求められました。 <span style="color: #999; font-size: 0.8em;">#1002</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-1')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-1">
+    <div class="answer-content">パスワード入力か生体認証設定をすると先に進めます。詳しくはGoogleヘルプをご確認ください。（一度Playストアを閉じて、再度Playストアを開きなおすと設定せずに先に進める場合があります。）</div>
+    <div class="answer-links">
+      <a href="https://support.google.com/googleplay/answer/1626831" target="_blank" class="answer-link">🔍 Google Help</a>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="初期設定・申し込み">
+  <div class="faq-question" onclick="toggleFAQ('faq-2')">
+    <div class="faq-question-text">アプリインストール時に支払い方法の設定を求められました。 <span style="color: #999; font-size: 0.8em;">#1003</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-2')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-2">
+    <div class="answer-content">「アカウント設定」という画面で「スキップ」をタップすることで設定せず先へ進めます。</div>
+    <div class="answer-links">
+      <button onclick="openImageModal('images/1003.png')" class="answer-link">📷 参考画像</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="初期設定・申し込み">
+  <div class="faq-question" onclick="toggleFAQ('faq-3')">
+    <div class="faq-question-text">スマホのバージョンが古くてアプリが見つからない・インストールできない <span style="color: #999; font-size: 0.8em;">#1004</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-3')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-3">
+    <div class="answer-content">端末のAndroid・iOSのバージョンが古く、対応していない場合は検索結果に表示されません。令和７年（2025年）４月１日現在、Android8.0及びiOS13以前のバージョンには非対応となっています。</div>
+  </div>
+</div><div class="faq-item" data-category="初期設定・申し込み">
+  <div class="faq-question" onclick="toggleFAQ('faq-4')">
+    <div class="faq-question-text">アプリがダウンロードできず、ぐるぐるしたまま止まってしまう <span style="color: #999; font-size: 0.8em;">#1005</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-4')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-4">
+    <div class="answer-content">1. Wi-Fiなど安定した通信に切り替える 2. スマホを再起動 3. 時刻設定と空き容量の確認 4. システムアップデート確認</div>
+  </div>
+</div><div class="faq-item" data-category="初期設定・申し込み">
+  <div class="faq-question" onclick="toggleFAQ('faq-5')">
+    <div class="faq-question-text">Android端末で「開発者モードを検知しました」と表示されて先に進めない <span style="color: #999; font-size: 0.8em;">#1006</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-5')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-5">
+    <div class="answer-content">開発者モードを検知した場合、スマホの「開発者向けオプション」＞「USBデバッグ」オフに設定してください。詳しい手順は以下をご確認ください。</div>
+    <div class="answer-links">
+      <button onclick="showInlineModal('developer-mode-modal')" class="answer-link">📱 設定手順を確認</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="初期設定・申し込み">
+  <div class="faq-question" onclick="toggleFAQ('faq-6')">
+    <div class="faq-question-text">ニックネームは何に使われますか？　変更できますか？ <span style="color: #999; font-size: 0.8em;">#1007</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-6')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-6">
+    <div class="answer-content">脳トレゲームの対戦相手の名前や、歩数ランキング等に使用されます。本名での登録はご遠慮下さい。<br>なお、ニックネームはいつでも変更できます。</div>
+  </div>
+</div><div class="faq-item" data-category="初期設定・申し込み">
+  <div class="faq-question" onclick="toggleFAQ('faq-7')">
+    <div class="faq-question-text">ホーム画面に「廿日市市メニュー」が表示されません。 <span style="color: #999; font-size: 0.8em;">#1008</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-7')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-7">
+    <div class="answer-content">アプリの画面右上「メニュー」＞アプリ設定＞市区町村登録＞廿日市市＞登録で、変更できます。</div>
+    <div class="answer-links">
+      <button onclick="openImageModal('images/1008.png')" class="answer-link">📷 参考画像</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="初期設定・申し込み">
+  <div class="faq-question" onclick="toggleFAQ('faq-8')">
+    <div class="faq-question-text">AIひつじの説明が進んでいきません。 <span style="color: #999; font-size: 0.8em;">#1009</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-8')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-8">
+    <div class="answer-content">「ここを押す」と指定されたところをタップしてください。最後まで進んだら「アプリホームへ」を押し、ホーム画面へ戻ります。</div>
+    <div class="answer-links">
+      <button onclick="openImageModal('images/1009.png')" class="answer-link">📷 参考画像</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="初期設定・申し込み">
+  <div class="faq-question" onclick="toggleFAQ('faq-9')">
+    <div class="faq-question-text">位置情報の許可を選択しませんでした。 <span style="color: #999; font-size: 0.8em;">#1010</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-9')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-9">
+    <div class="answer-content">スマホ本体設定であとから再設定できます。スマートフォン本体の設定＞アプリ情報＞脳にいいアプリ＞権限から位置情報を許可（アプリ使用中のみ許可）を選択してください。</div>
+    <div class="answer-links">
+      <button onclick="openImageModal('images/1010.png')" class="answer-link">📷 参考画像</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="初期設定・申し込み">
+  <div class="faq-question" onclick="toggleFAQ('faq-10')">
+    <div class="faq-question-text">権限「身体活動」の許可を選択しませんでした。 <span style="color: #999; font-size: 0.8em;">#1011</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-10')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-10">
+    <div class="answer-content">権限「身体活動」を許可していない場合は、歩数画面上部に「運動データの権限を許可に設定してください」と表示されます。その表示をタップ＞「権限」に進み、身体活動の権限を許可に設定してください。</div>
+    <div class="answer-links">
+      <button onclick="openImageModal('images/1011.png')" class="answer-link">📷 参考画像</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="初期設定・申し込み">
+  <div class="faq-question" onclick="toggleFAQ('faq-11')">
+    <div class="faq-question-text">アプリをインストールしても0ポイントのままポイントがたまりません。 <span style="color: #999; font-size: 0.8em;">#1012</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-11')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-11">
+    <div class="answer-content">はつポのポイントをためるには、アプリをインストールした上で、はつポ申込を行い、市が承認する必要があります。アプリホーム画面の「廿日市市メニュー」からはつポへの申し込みを行ってください。</div>
+  </div>
+</div><div class="faq-item" data-category="初期設定・申し込み">
+  <div class="faq-question" onclick="toggleFAQ('faq-17')">
+    <div class="faq-question-text">健康保険から送られてきた「資格確認書」でも本人確認書類に使えますか？ <span style="color: #999; font-size: 0.8em;">#1018</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-17')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-17">
+    <div class="answer-content">住所が表面に記載されている資格確認書のみ本人確認書類として使用でき、「その他書類」を選択してください（「保険証」選択はエラー）。住所が裏面の場合は使用できないため、他の書類を用意してください。</div>
+  </div>
+</div><div class="faq-item" data-category="初期設定・申し込み">
+  <div class="faq-question" onclick="toggleFAQ('faq-19')">
+    <div class="faq-question-text">はつポに申し込みしたのにポイントがたまりません。 <span style="color: #999; font-size: 0.8em;">#1020</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-19')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-19">
+    <div class="answer-content">申込完了後、市が内容を確認・承認し（約1～3日）、承認後にポイントが付与されます。承認完了はアプリの「登録完了のお知らせ」で通知されます。</div>
+  </div>
+</div><div class="faq-item" data-category="初期設定・申し込み">
+  <div class="faq-question" onclick="toggleFAQ('faq-21')">
+    <div class="faq-question-text">はつポに「申込中」となっていますが、内容の間違えに気づきました。どうすればいいですか？ <span style="color: #999; font-size: 0.8em;">#1022</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-21')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-21">
+    <div class="answer-content">高齢者いきいき課（042-620-7243）にご連絡ください。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-23')">
+    <div class="faq-question-text">歩数が極端に少ないまたは0歩から動きません。 <span style="color: #999; font-size: 0.8em;">#1024</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-23')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-23">
+    <div class="answer-content">Androidは「運動データの権限」を許可し、センサー不具合時は再起動、省電力モードは解除、他のアプリと歩数が異なる場合があります。iPhoneは「モーションとフィットネス」設定をオンにし、Apple Watchなどのスマートウォッチで計測した歩数は、『脳にいいアプリ』に反映されないため、実際よりも歩数が少なく表示される場合があります。</div>
+    <div class="answer-links">
+      <button onclick="openHtmlModal('battery-optimizer-simple.html', event)" class="answer-link">📖 最適化設定手順を見る</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-24')">
+    <div class="faq-question-text">万歩計や他のアプリと同じ歩数になりません。 <span style="color: #999; font-size: 0.8em;">#1025</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-24')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-24">
+    <div class="answer-content">Android端末には歩数センサー内蔵・非内蔵の2タイプがあり、非内蔵の場合はアプリごとに歩数が異なることがあり、バッテリー最適化設定によっては正確にカウントできない場合があります。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-25')">
+    <div class="faq-question-text">スマホは持ち歩かないので、スマートWatchを連携できますか？ <span style="color: #999; font-size: 0.8em;">#1026</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-25')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-25">
+    <div class="answer-content">スマートウォッチなどウェアラブル端末で計測した歩数を脳にいいアプリに連携することはできません</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-26')">
+    <div class="faq-question-text">過去の歩数データを確認することはできますか？ <span style="color: #999; font-size: 0.8em;">#1027</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-26')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-26">
+    <div class="answer-content">アプリの画面右上メニュー＞活動記録より過去1週間の歩数データをご確認いただけます。</div>
+    <div class="answer-links">
+      <button onclick="openImageModal('images/1027.png')" class="answer-link">📷 参考画像</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-27')">
+    <div class="faq-question-text">目標歩数を変更できますか？ <span style="color: #999; font-size: 0.8em;">#1028</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-27')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-27">
+    <div class="answer-content">科学的な研究結果に基づき、年代と性別で自動的に設定しているため、変更はできません。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-28')">
+    <div class="faq-question-text">目標歩数の2倍歩いたら2倍ポイントをもらえますか？ <span style="color: #999; font-size: 0.8em;">#1029</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-28')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-28">
+    <div class="answer-content">1日の目標歩数を達成すると1ポイント付与され、目標歩数の2倍を歩いてもポイント数は増えません。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-29')">
+    <div class="faq-question-text">スマートフォンを手に持っていないと歩数をカウントしないのでしょうか？ <span style="color: #999; font-size: 0.8em;">#1030</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-29')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-29">
+    <div class="answer-content">歩数をカウントするにはスマートフォンを持って歩く必要があります。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-30')">
+    <div class="faq-question-text">歩数は家の中でもカウントしますか？ <span style="color: #999; font-size: 0.8em;">#1031</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-30')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-30">
+    <div class="answer-content">スマートフォンを身につけて歩いた場合はカウントされます。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-31')">
+    <div class="faq-question-text">歩行ペースが急に半分以下に表示されます。 <span style="color: #999; font-size: 0.8em;">#1032</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-31')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-31">
+    <div class="answer-content">一定時間7分程度歩くことで、歩行ペースが更新されます。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-32')">
+    <div class="faq-question-text">機内モードでも歩数はカウントしますか？ <span style="color: #999; font-size: 0.8em;">#1033</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-32')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-32">
+    <div class="answer-content">オフライン等機内モードでも歩数はカウントします。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-33')">
+    <div class="faq-question-text">スマートフォンを機種変更してから歩数計測数が少ないです。 <span style="color: #999; font-size: 0.8em;">#1034</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-33')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-33">
+    <div class="answer-content">機種変更後に歩数計測数が少ない場合は、電池最適化設定が影響している可能性がありますので、「電池最適化しない」に設定を見直してください。</div>
+    <div class="answer-links">
+      <button onclick="openHtmlModal('battery-optimizer-simple.html', event)" class="answer-link">📖 最適化設定手順を見る</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-34')">
+    <div class="faq-question-text">歩数ランキングに若い人が混ざっています。 <span style="color: #999; font-size: 0.8em;">#1035</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-34')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-34">
+    <div class="answer-content">脳にいいアプリは無料で誰でも利用でき、歩数ランキングは同じ市区町村のアプリ利用者全員が対象で、はつポ登録者以外も含まれます。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-35')">
+    <div class="faq-question-text">ウォーキングチャレンジとは何ですか？コースを制覇したらポイントはもらえますか？ <span style="color: #999; font-size: 0.8em;">#1036</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-35')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-35">
+    <div class="answer-content">累計歩数によって全国の名所コースを仮想的に歩く機能ですが、コースを制覇してもポイントは付与されません。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-36')">
+    <div class="faq-question-text">ウォーキングチャレンジで選べないコースがあります。 <span style="color: #999; font-size: 0.8em;">#1037</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-36')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-36">
+    <div class="answer-content">鍵マークがないコースをクリアすると選択できるコースが増え、解除条件は画面に表示される「あと〇コース制覇で解除」で確認できます。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-37')">
+    <div class="faq-question-text">ウォーキングチャレンジで全コース制覇しました。コースはこれ以上増えないのですか？ <span style="color: #999; font-size: 0.8em;">#1038</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-37')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-37">
+    <div class="answer-content">コースは現時点で追加予定はありませんが、制覇したコースには何度でもチャレンジできます。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-38')">
+    <div class="faq-question-text">ウォーキングチャレンジが進みません。 <span style="color: #999; font-size: 0.8em;">#1039</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-38')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-38">
+    <div class="answer-content">端末の再起動をお試しいただき、それでも改善しない場合はアプリ内のお問合せからご連絡ください。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-39')">
+    <div class="faq-question-text">歩数画面の歩数と歩数ランキングの歩数が違うのはなぜですか？ <span style="color: #999; font-size: 0.8em;">#1040</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-39')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-39">
+    <div class="answer-content">歩数ランキングへの反映には多少時間がかかる場合がございます。反映には以下の流れをご確認ください。<br><br>1.歩く<br>2.アプリを開く（歩数データがサーバーに送信されます）<br><br><strong>重要なポイント</strong><br>歩いた後に必ずアプリを開いてください。アプリを開くことで歩数データがサーバーに送られ、その後ランキングに反映されます。アプリを開かないと歩数がサーバーに送られないため、ランキングに反映されません。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-40')">
+    <div class="faq-question-text">この脳トレは、認知症予防に効果はありますか？ <span style="color: #999; font-size: 0.8em;">#1041</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-40')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-40">
+    <div class="answer-content">脳トレは米国国立衛生研究所や米ウィスコンシン大学の研究結果を参考に開発されています。また、国立研究開発法人 国立長寿医療研究センター「認知症予防についての調査研究事業結果報告書」（2017年）では認知症予防活動は運動や認知トレーニングを複合したアプローチの方が、単独の予防活動より有効という結論が記載されており、脳にいいアプリは運動・脳トレ・食事の複合的な活動ができるアプリとなっています。詳しくは脳にいいアプリ公式ホームページをご確認ください。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-41')">
+    <div class="faq-question-text">脳トレの目標回数を変更できますか？ <span style="color: #999; font-size: 0.8em;">#1042</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-41')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-41">
+    <div class="answer-content">科学的な研究結果に基づき、年代と性別で自動的に設定しているため、変更はできません。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-42')">
+    <div class="faq-question-text">対戦するのはなぜですか？ <span style="color: #999; font-size: 0.8em;">#1043</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-42')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-42">
+    <div class="answer-content">認知機能向上には人との繋がりが重要とされているため、誰かと一緒に楽しめるよう開発されており、対戦はリアルタイムではなく他の利用者のクリアタイムや正答率を競う形式です。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-43')">
+    <div class="faq-question-text">番付とは何ですか？昇段と降格の基準がわかりません。 <span style="color: #999; font-size: 0.8em;">#1044</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-43')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-43">
+    <div class="answer-content">脳トレのランク（番付）は、回答の正確さや速さに応じて変動します。対戦の勝ち負けは関係なく、過去の成績も考慮されます。たとえ負けても素早く正確に答えていれば昇格することがあり、逆に勝っても誤答や時間のかかりすぎがあると降格することがあります。番付が上がると問題の難易度も上がります。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-44')">
+    <div class="faq-question-text">脳トレ対戦は誰と戦っているのですか？リアルタイムで対戦しているのですか？ <span style="color: #999; font-size: 0.8em;">#1045</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-44')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-44">
+    <div class="answer-content">脳トレでは、他のアプリ利用者が過去にクリアしたときの「タイム」や「正答率」と対戦します。リアルタイムで他の人と同時にプレイするわけではなく、記録された成績との勝負になります。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-45')">
+    <div class="faq-question-text">脳トレゲーム終了時の「クリア」と「最高」の意味がわかりません。 <span style="color: #999; font-size: 0.8em;">#1046</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-45')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-45">
+    <div class="answer-content">「クリア」は、今回の脳トレを解き終えるまでにかかった時間を示します。「最高」は、現在の番付においてご自身がこれまでに記録した最も早いクリアタイムを表しています。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-46')">
+    <div class="faq-question-text">脳力図とは何ですか？「高次」という項目の意味は何ですか？ <span style="color: #999; font-size: 0.8em;">#1047</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-46')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-46">
+    <div class="answer-content">脳力図は、統計的な情報から各脳力を測定します。高次力は、主に空間や時間に対する判断・注意・問題解決力などを表します。脳にいいアプリでは、正確にタップする事や、パズル等をより少ないタップ数で早く正解することで、高次力が高まります。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-47')">
+    <div class="faq-question-text">スライドパズルの動かし方がわかりません。 <span style="color: #999; font-size: 0.8em;">#1048</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-47')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-47">
+    <div class="answer-content">スライドパズル完全解説動画を視聴後、アシストアプリでスライドパズルの基本手順をマスターしよう</div>
+    <div class="answer-links">
+      <button onclick="showInlineModal('slide-puzzle-guide-modal')" class="answer-link">🧩 スライドパズル練習ガイドを見る</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-48')">
+    <div class="faq-question-text">間違いさがしの解き方がわかりません。 <span style="color: #999; font-size: 0.8em;">#1049</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-48')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-48">
+    <div class="answer-content">間違い探しは、正解の絵を覚え、画面下の切り替えボタンを活用しながら、色や動きの変化に注目してタップすることがコツです。</div>
+    <div class="answer-links">
+      <button onclick="openImageModal('images/1049.png')">📱 YouTube QR</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-49')">
+    <div class="faq-question-text">Nバック課題の解き方がわかりません。 <span style="color: #999; font-size: 0.8em;">#1050</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-49')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-49">
+    <div class="answer-content">2バック課題は、最初の2問は例題（〇×なし）で文字を覚え、3問目以降は「2つ前と同じ文字か」を判断して〇×ボタンで回答する全10問の脳トレです。</div>
+    <div class="answer-links">
+      <button onclick="openImageModal('images/1050.png')">📱 YouTube QR</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-50')">
+    <div class="faq-question-text">画面が極端に小さくなります。 <span style="color: #999; font-size: 0.8em;">#1051</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-50')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-50">
+    <div class="answer-content">Playストアの「アップデート可能なアプリ一覧」から「Chrome」と「Android System WebView」を更新してください。BASIOやGalaxy端末をご利用の方は、更新に加えて本体設定の変更が必要な場合があります</div>
+    <div class="answer-links">
+      <button onclick="openImageModal('images/1051.png')" class="answer-link">📷 参考画像</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-51')">
+    <div class="faq-question-text">途中でアプリが落ちて（閉じて）しまいます。 <span style="color: #999; font-size: 0.8em;">#1052</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-51')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-51">
+    <div class="answer-content">（1）端末を再起動（2）バックグラウンドアプリを閉じる。（起動中になっているアプリを全て終了する。）（3）脳にいいアプリのキャッシュをクリアする。（スマートフォン本体の設定＞アプリ情報＞脳にいいアプリから以下の手順で設定）</div>
+    <div class="answer-links">
+      <button onclick="openImageModal('images/1051.png')" class="answer-link">📷 参考画像</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-52')">
+    <div class="faq-question-text">脳トレ中に中断して、後から再開はできますか？ <span style="color: #999; font-size: 0.8em;">#1053</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-52')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-52">
+    <div class="answer-content">脳トレは一度始めると最後まで中断できず、途中でやめると初期画面に戻り記録は残りません。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-53')">
+    <div class="faq-question-text">アプリの更新が必要とでてしまったのですがどうすればよいですか？ <span style="color: #999; font-size: 0.8em;">#1054</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-53')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-53">
+    <div class="answer-content">アプリをアップデートする必要があります。Playストアから脳にいいアプリを検索し、「更新」をタップしてください。なお、一度「更新」をタップするとボタンが「アンインストール」に変わります。「アンインストール」をタップするとアプリが削除されてしまいますので、<span style="color: red; font-weight: bold;">絶対に触らず</span>「開く」が出るまでお待ちください。</div>
+    <div class="answer-links">
+      <button onclick="showInlineModal('app-update-modal')" class="answer-link">📱 更新手順を確認</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-54')">
+    <div class="faq-question-text">脳トレの効果音が出ないようにしたいです。 <span style="color: #999; font-size: 0.8em;">#1055</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-54')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-54">
+    <div class="answer-content">端末の音量を0にする（マナーモード）→アプリ右上メニュー＞アプリ設定＞音の設定から脳トレ効果音をOFFにしてください。</div>
+    <div class="answer-links">
+      <button onclick="openImageModal('images/1055.png')" class="answer-link">📷 参考画像</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-55')">
+    <div class="faq-question-text">脳トレのアイコンは変更できますか？ <span style="color: #999; font-size: 0.8em;">#1056</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-55')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-55">
+    <div class="answer-content">アプリ右上メニュー＞アプリ設定＞プロフィールからアイコンをタップし、お好きなアイコンに変更できます。</div>
+    <div class="answer-links">
+      <button onclick="openImageModal('images/1056.png')" class="answer-link">📷 参考画像</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-57')">
+    <div class="faq-question-text">脳トレで、3-0で勝ち、総合評価もSでしたが、番付が降格になってしまいました。 <span style="color: #999; font-size: 0.8em;">#1058</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-57')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-57">
+    <div class="answer-content">番付の昇段や降格は、回答の速さ・正確さ・過去の成績によって決まり、対戦の勝ち負けは関係ありません。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-58')">
+    <div class="faq-question-text">虫食い計算 （例）数字◯0(ゼロ)=0(ゼロ) ◯の中は×と÷どちらでも成り立つのに、÷を選ぶと間違いになってしまいます。 <span style="color: #999; font-size: 0.8em;">#1059</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-58')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-58">
+    <div class="answer-content">「÷」の場合の答えは「計算不可」のため「×」が正解となります。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-59')">
+    <div class="faq-question-text">記憶計算の仕組みがわかりません。 <span style="color: #999; font-size: 0.8em;">#1060</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-59')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-59">
+    <div class="answer-content">前の問題の答えの一桁目（末尾の数字）を次の問題に使います。答えがマイナスの場合でも、符号を除いた数字のみ使用します</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-60')">
+    <div class="faq-question-text">計算式を記入する問題で5+0＝5という問題がありました。 +でも-でも正解だと思います。 <span style="color: #999; font-size: 0.8em;">#1061</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-60')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-60">
+    <div class="answer-content">正解が複数ある問題は出題されない仕様になっています。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-61')">
+    <div class="faq-question-text">苦手な問題ばかり出題されます。 <span style="color: #999; font-size: 0.8em;">#1062</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-61')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-61">
+    <div class="answer-content">アプリは利用者の脳トレ成績や過去の活動を自動分析し、特に苦手と判断された問題が繰り返し出題される場合がございます。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-62')">
+    <div class="faq-question-text">脳年齢の変動が大きいです。 <span style="color: #999; font-size: 0.8em;">#1063</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-62')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-62">
+    <div class="answer-content">脳年齢は計算力や記憶力などご自身の脳力に応じて上下し、実年齢に基づいた統計データをもとに測定されます。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-63')">
+    <div class="faq-question-text">目標品目数を変更できますか？ <span style="color: #999; font-size: 0.8em;">#1064</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-63')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-63">
+    <div class="answer-content">科学的な研究結果に基づき、年代と性別で自動的に設定しているため、変更はできません。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-64')">
+    <div class="faq-question-text">ごはんやパン、肉がありません。なぜこの9品目なのでしょうか？ <span style="color: #999; font-size: 0.8em;">#1065</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-64')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-64">
+    <div class="answer-content">脳の健康に良いとされる和食の食材や、神経細胞や神経伝達に関与する栄養素を多く含む食材をまとめた品目です。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-65')">
+    <div class="faq-question-text">ヨーグルトはチーズに含めていいですか？他も同じ種類なら含めてもいいですか？ <span style="color: #999; font-size: 0.8em;">#1066</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-65')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-65">
+    <div class="answer-content">同種の食材（例：豆製品・乳製品・海藻類・きのこ類）は含めてカウントして構いません。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-66')">
+    <div class="faq-question-text">ゴマなど食べた量が少なくてもいいですか？ <span style="color: #999; font-size: 0.8em;">#1067</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-66')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-66">
+    <div class="answer-content">少量でもカウントしていただいて構いません。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-67')">
+    <div class="faq-question-text">食事を記録するタイミングはいつが良いでしょうか？ <span style="color: #999; font-size: 0.8em;">#1068</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-67')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-67">
+    <div class="answer-content">当日中であれば記録のタイミングは自由ですが、一日の終わりに食事を思い出して記録することを推奨しています。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-68')">
+    <div class="faq-question-text">間違えて違う品目をチェックしてしまいました。 <span style="color: #999; font-size: 0.8em;">#1069</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-68')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-68">
+    <div class="answer-content">間違えてチェックしてしまった食材マークをもう一度タップすると取り消しができます。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-69')">
+    <div class="faq-question-text">前日、食事を記録するの忘れてしまいましたが、後から入力できますか？ <span style="color: #999; font-size: 0.8em;">#1070</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-69')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-69">
+    <div class="answer-content">食事の入力は当日分（0時～23時59分）のみで、過去の登録や修正はできません。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-70')">
+    <div class="faq-question-text">「QRコードを読む」を押してもカメラが起動しません。 <span style="color: #999; font-size: 0.8em;">#1071</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-70')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-70">
+    <div class="answer-content">
+      <strong>【Android版】</strong><br>
+      脳にいいアプリアイコン長押し＞アプリ情報＞権限＞カメラ＞アプリの使用中のみ許可を選択
+      <div class="answer-links">
+        <button onclick="openImageModal('images/1071.png')" class="answer-link">📷 参考画像</button>
+      </div>
+      <strong>【iPhone版】</strong><br>
+      設定＞プライバシーとセキュリティ＞カメラ＞脳にいいアプリにチェックする
+    </div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-71')">
+    <div class="faq-question-text">廿日市市メニューを押しましたが、画面真っ白で見れません。 <span style="color: #999; font-size: 0.8em;">#1072</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-71')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-71">
+    <div class="answer-content">標準ブラウザがChromeであることを確認のうえ、Playストアで「Chrome」と「Android System WebView」を更新してください（BASIO・Galaxy端末は本体設定も必要な場合があります）。</div>
+    <div class="answer-links">
+      <button onclick="openImageModal('images/1051.png')" class="answer-link">📷 参考画像</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-72')">
+    <div class="faq-question-text">かんたん健康管理とは何ですか？血糖や骨密度など分からないのはどうしたらよいですか？ <span style="color: #999; font-size: 0.8em;">#1073</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-72')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-72">
+    <div class="answer-content">体重や血圧などは測定時に入力してグラフ化できます。分からない項目は無理に入力する必要はありません。健診等で測定する機会があった場合入力してみてください。</div>
+    <div class="answer-links">
+      <button onclick="openImageModal('images/1073.png')" class="answer-link">📷 参考画像</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-73')">
+    <div class="faq-question-text">かんたん健康管理で身長の数字を変更できますか？ <span style="color: #999; font-size: 0.8em;">#1074</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-73')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-73">
+    <div class="answer-content">身長は変更可能です。体重入力時に「身長」欄を直接変更してください。ただし、既に登録済みの記録を遡って変更することはできません。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-74')">
+    <div class="faq-question-text">毎日出てくるAIひつじを出ないようにしたいです。 <span style="color: #999; font-size: 0.8em;">#1075</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-74')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-74">
+    <div class="answer-content">毎日最初に脳にいいアプリを起動するとAIヒツジが本日の体調を聞いてきたり、廿日市の天気を知らせてくれます。画面右上の「×」をタップすることでスキップすることができます。<br>また、メイン画面の右上メニュー＞アプリ設定＞なんでも相談の設定の「AIヒツジのあいさつ自動スキップ」をオンにすることで、常時、AIヒツジを省略することができます。</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-75')">
+    <div class="faq-question-text">なんでも相談とは何ですか？ <span style="color: #999; font-size: 0.8em;">#1076</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-75')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-75">
+    <div class="answer-content">なんでも相談とは、Microsoft社が法人向けに提供するAzure OpenAI Serviceを利用した安全なChatGPTです。疑問や困りごと等、いつでも質問できます。アプリホーム画面のページ最下部の「相談してみる」をタップしてご利用ください。<br>※なんでも相談はMicrosoft社にてセキュリティ対策を実施しており、安心してご利用いただけます。<br><br><strong>【相談例】</strong><br>・冷蔵庫の中身を記載して料理メニューを考えてもらう<br>・気温を記載して、適した服装を教えてもらう</div>
+  </div>
+</div><div class="faq-item" data-category="歩数・脳トレ・食事・ホーム画面">
+  <div class="faq-question" onclick="toggleFAQ('faq-76')">
+    <div class="faq-question-text">なんでも相談に入力した個人的な内容はどうなりますか？ <span style="color: #999; font-size: 0.8em;">#1077</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-76')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-76">
+    <div class="answer-content">相談内容に個人情報が含まれる場合は送信されず、内容がChatGPT側に蓄積されることもありません。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-77')">
+    <div class="faq-question-text">アプリを利用するのに費用はかかりますか？ <span style="color: #999; font-size: 0.8em;">#1078</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-77')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-77">
+    <div class="answer-content">アプリの利用に費用はかかりませんが、通信料（目安：月50～80MB）はご自身のご負担となります。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-78')">
+    <div class="faq-question-text">メイン画面（ホーム・歩数・脳トレ・食事）に戻れなくなってしまいました。 <span style="color: #999; font-size: 0.8em;">#1079</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-78')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-78">
+    <div class="answer-content">各機能を開いた後は、画面左上の「＜戻る」やAndroid本体下部のナビゲーションバーにある戻るボタンでメイン画面に戻れます。</div>
+    <div class="answer-links">
+      <button onclick="openImageModal('images/1079.png')" class="answer-link">📷 参考画像</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-80')">
+    <div class="faq-question-text">アプリのバージョンは自動で更新されますか？ <span style="color: #999; font-size: 0.8em;">#1081</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-80')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-80">
+    <div class="answer-content">スマートフォンの設定はご自身で確認が必要ですが、システムやアプリは自動または手動で常に最新に保つことをおすすめします。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-81')">
+    <div class="faq-question-text">歩数、脳トレなど過去の活動記録はどうすれば確認できますか？ <span style="color: #999; font-size: 0.8em;">#1082</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-81')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-81">
+    <div class="answer-content">アプリメニューの「活動記録」から過去1週間分のデータを確認でき、日付をタップするとその日の歩数・脳トレ回数・食事品目数が表示されます。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-82')">
+    <div class="faq-question-text">個人情報の取り扱いは適正に行われていますか？ <span style="color: #999; font-size: 0.8em;">#1083</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-82')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-82">
+    <div class="answer-content">はつポ申込時の情報や本人確認書類の画像は廿日市市のみで管理され、アプリ会社には提供されず、確認後は市で削除されます。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-83')">
+    <div class="faq-question-text">認知機能テストとは何ですか？ <span style="color: #999; font-size: 0.8em;">#1084</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-83')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-83">
+    <div class="answer-content">記憶力や判断力を測定するテストです。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-84')">
+    <div class="faq-question-text">認知機能テストと実施方法は？ <span style="color: #999; font-size: 0.8em;">#1085</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-84')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-84">
+    <div class="answer-content">認知機能テストは右上メニューから実施できる基本有料サービスですが、200スターでチケットと交換でき、年2回（2月・8月）にははつポ登録者に無料チケットが配布されます（途中終了時はチケットは消費されません）。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-85')">
+    <div class="faq-question-text">もうすぐ70歳（登録時から年代が変更）になりますが、目標数値は変化しますか？ <span style="color: #999; font-size: 0.8em;">#1086</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-85')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-85">
+    <div class="answer-content">アプリへの生年月日登録をしている場合は、年代の変更があれば、目標値は変化します。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-87')">
+    <div class="faq-question-text">服薬に登録した情報が消えてしまいます。 <span style="color: #999; font-size: 0.8em;">#1088</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-87')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-87">
+    <div class="answer-content">登録したお薬は処方日数の経過により自動で非表示となるため、期間が過ぎた際は再登録が必要です。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-88')">
+    <div class="faq-question-text">海外旅行で、歩数や脳トレなどアプリは使用できますか？ <span style="color: #999; font-size: 0.8em;">#1089</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-88')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-88">
+    <div class="answer-content">脳にいいアプリは日本の時刻に基づいた仕様のため、海外では動作保証外となり、ご利用いただけません。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-90')">
+    <div class="faq-question-text">ニックネームなどインストール時に入力した基本情報の変更方法がわかりません。 <span style="color: #999; font-size: 0.8em;">#1091</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-90')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-90">
+    <div class="answer-content">アプリの画面右上「メニュー」＞アプリ設定＞プロフィールから変更できます。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-91')">
+    <div class="faq-question-text">ユーザーIDの確認方法がわかりません。 <span style="color: #999; font-size: 0.8em;">#1092</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-91')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-91">
+    <div class="answer-content">アプリ画面右上のメニューをタップすると最上部に表示されます。</div>
+    <div class="answer-links">
+      <button onclick="openImageModal('images/1092.png')" class="answer-link">📷 参考画像</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-92')">
+    <div class="faq-question-text">お知らせプッシュ通知がたくさんきて煩わしいです。 <span style="color: #999; font-size: 0.8em;">#1093</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-92')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-92">
+    <div class="answer-content">脳にいいアプリを開いてメニュー＞アプリ設定＞ブレキュア君の設定＞該当の通知項目をOFFにする<br><br>【完全に通知をオフにする方法（Android）】<br>脳にいいアプリアイコン長押し＞アプリ情報＞通知＞通知をOFFにしてください。</div>
+    <div class="answer-links">
+      <button onclick="openImageModal('images/1093.png')" class="answer-link">📷 参考画像（通常パターン）</button>
+      <button onclick="openImageModal('images/1093_android.png')" class="answer-link">📷 参考画像（完全オフ）</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-96')">
+    <div class="faq-question-text">アプリ内から問い合わせをしました。どこに回答が届きますか？ <span style="color: #999; font-size: 0.8em;">#1097</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-96')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-96">
+    <div class="answer-content">アプリのお知らせに届きます。アプリのお知らせは画面右上メニューから確認できます。</div>
+    <div class="answer-links">
+      <button onclick="openImageModal('images/1094.png')" class="answer-link">📷 参考画像</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-99')">
+    <div class="faq-question-text">スターの使い方がわかりません。はつポのポイントとは何が違うのですか？ <span style="color: #999; font-size: 0.8em;">#1100</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-99')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-99">
+    <div class="answer-content">スターは全ユーザーが利用できる標準機能。廿日市市では別途、はつポ登録者向けに「はつポポイント」を導入しており、スターとはつポポイントは別物で、付与ルールも異なる。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-102')">
+    <div class="faq-question-text">ポイント利用店でのポイント利用方法がわかりません。 <span style="color: #999; font-size: 0.8em;">#1103</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-102')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-102">
+    <div class="answer-content">QRコードが読み取れない場合は、スマートフォンの位置情報（GPS）をオンにし、アプリの位置情報設定を「許可」にして下さい。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-105')">
+    <div class="faq-question-text">スターの数とはつポのポイント数が一致しません。 <span style="color: #999; font-size: 0.8em;">#1106</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-105')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-105">
+    <div class="answer-content">スターは全ユーザーが利用できる標準機能。廿日市市では別途、はつポ登録者向けに「はつポポイント」を導入しており、スターとはつポポイントは別物で、付与ルールも異なる。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-107')">
+    <div class="faq-question-text">自分の現在のポイント数はどこで確認できますか？ <span style="color: #999; font-size: 0.8em;">#1108</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-107')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-107">
+    <div class="answer-content">アプリホーム画面の「廿日市市メニュー」や「はつポ情報」から確認できる。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-108')">
+    <div class="faq-question-text">突然ポイントが0になりました。どうすればいいですか？ <span style="color: #999; font-size: 0.8em;">#1109</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-108')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-108">
+    <div class="answer-content">機種変更後にデータ引継ぎが未完了の場合や、アプリアップデート時に再インストールを行った場合などが原因として考えられる。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-109')">
+    <div class="faq-question-text">アプリをインストールしてもポイントが0のままです。 <span style="color: #999; font-size: 0.8em;">#1110</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-109')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-109">
+    <div class="answer-content">はつポポイントをためるには、アプリのインストール後にはつポへ申し込み、市の承認を受ける必要がある。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-112')">
+    <div class="faq-question-text">いつポイントが入ったか履歴を確認できますか？ <span style="color: #999; font-size: 0.8em;">#1113</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-112')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-112">
+    <div class="answer-content">アプリホーム画面「はつポ情報」＞「はつポ情報」（画面下部）から確認可能。ポイント履歴は削除できず、履歴によるデータ容量増加もない。</div>
+  </div>
+</div><div class="faq-item" data-category="機種変更・データ引継ぎ・退会">
+  <div class="faq-question" onclick="toggleFAQ('faq-118')">
+    <div class="faq-question-text">スマートフォンを機種変更しました。引継ぎはどうすればよいですか？ <span style="color: #999; font-size: 0.8em;">#1119</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-118')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-118">
+    <div class="answer-content">データ引継ぎ機能を使用すれば、ユーザーIDと生年月日で全データを即時復元できます。詳しい手順は以下のガイドをご覧ください。</div>
+    <div class="answer-links">
+      <button onclick="showInlineModal('device-transfer-modal')" class="answer-link">📱 機種変更ガイドを見る</button>
+    </div>
+  </div>
+</div>
+    </div>
+
+    <script>
+        function toggleFAQ(faqId) {
+            try {
+                const answer = document.getElementById('answer-' + faqId);
+                const faqItem = answer ? answer.closest('.faq-item') : null;
+                const icon = faqItem ? faqItem.querySelector('.faq-icon') : null;
+                
+                if (!answer) {
+                    console.error('FAQ answer not found for ID:', faqId);
+                    return;
+                }
+                
+                if (!icon) {
+                    console.error('FAQ icon not found for ID:', faqId);
+                    return;
+                }
+                
+                console.log('Toggling FAQ:', faqId);
+                
+                if (answer.classList.contains('show') || answer.style.display === 'block') {
+                    answer.classList.remove('show');
+                    answer.style.display = 'none';
+                    icon.textContent = '▼';
+                    faqItem.classList.remove('active');
+                } else {
+                    answer.classList.add('show');
+                    answer.style.display = 'block';
+                    icon.textContent = '▲';
+                    faqItem.classList.add('active');
+                }
+            } catch (error) {
+                console.error('Error in toggleFAQ:', error, 'for faqId:', faqId);
+            }
+        }
+        
+        function filterFAQ(category, element) {
+            document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
+            if (element) element.classList.add("active");
+            const faqItems = document.querySelectorAll(".faq-item");
+            faqItems.forEach(item => {
+                const itemCategory = item.getAttribute("data-category");
+                item.style.display = itemCategory === category ? "block" : "none";
+            });
+        }
+        
+        // 文字変換ユーティリティ関数
+        function normalizeText(text) {
+            // ひらがな・カタカナ・漢字の相互検索用正規化
+            let normalized = text.toLowerCase();
+            
+            // カタカナをひらがなに変換
+            normalized = normalized.replace(/[\u30A1-\u30FA]/g, function(match) {
+                return String.fromCharCode(match.charCodeAt(0) - 0x60);
+            });
+            
+            // 全角英数字を半角に変換
+            normalized = normalized.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(match) {
+                return String.fromCharCode(match.charCodeAt(0) - 0xFEE0);
+            });
+            
+            // スペースを統一
+            normalized = normalized.replace(/\s+/g, ' ').trim();
+            
+            return normalized;
+        }
+        
+        function createSearchVariations(query) {
+            // 実用的なバリエーション生成（スマート制限付き）
+            const variations = new Set();
+            variations.add(query);
+            variations.add(normalizeText(query));
+            
+            // ひらがなをカタカナに変換
+            const katakana = query.replace(/[\u3041-\u3096]/g, function(match) {
+                return String.fromCharCode(match.charCodeAt(0) + 0x60);
+            });
+            variations.add(katakana);
+            variations.add(normalizeText(katakana));
+            
+            // スマート表記ゆれ対応（厳選された一般的なもののみ）
+            const smartVariations = {
+                'のうとれ': ['脳トレ', 'ノウトレ'],
+                'ノウトレ': ['脳トレ', 'のうとれ'],
+                '脳トレ': ['のうとれ', 'ノウトレ'],
+                'まちがい': ['間違い', 'マチガイ'],
+                '間違い': ['まちがい', 'マチガイ'],
+                'マチガイ': ['間違い', 'まちがい'],
+                'ほすう': ['歩数', 'ホスウ', 'ほすう'],
+                '歩数': ['ほすう', 'ホスウ', '歩数'],
+                'ホスウ': ['歩数', 'ほすう', 'ホスウ'],
+                'しょくじ': ['食事', 'ショクジ', 'しょくじ'],
+                '食事': ['しょくじ', 'ショクジ', '食事'],
+                'ショクジ': ['食事', 'しょくじ', 'ショクジ'],
+                'らんきんぐ': ['ランキング', 'らんきんぐ', 'ランキング'],
+                'ランキング': ['らんきんぐ', 'ランキング'],
+                'ぽいんと': ['ポイント', 'ぽいんと', 'ポイント'],
+                'ポイント': ['ぽいんと', 'ポイント'],
+                'あぷり': ['アプリ', 'あぷり', 'アプリ'],
+                'アプリ': ['あぷり', 'アプリ'],
+                'せってい': ['設定', 'セッテイ', 'せってい'],
+                '設定': ['せってい', 'セッテイ', '設定'],
+                'セッテイ': ['設定', 'せってい', 'セッテイ'],
+                'きしゅ': ['機種', 'キシュ', 'きしゅ'],
+                '機種': ['きしゅ', 'キシュ', '機種'],
+                'キシュ': ['機種', 'きしゅ', 'キシュ'],
+                'でーた': ['データ', 'でーた', 'データ'],
+                'データ': ['でーた', 'データ'],
+                'ひきつぎ': ['引継ぎ', 'ヒキツギ', 'ひきつぎ', '引き継ぎ'],
+                '引継ぎ': ['ひきつぎ', 'ヒキツギ', '引継ぎ', '引き継ぎ'],
+                '引き継ぎ': ['ひきつぎ', 'ヒキツギ', '引継ぎ', '引き継ぎ'],
+                'ヒキツギ': ['引継ぎ', 'ひきつぎ', 'ヒキツギ', '引き継ぎ'],
+                'すらいど': ['スライド', 'すらいど', 'スライド'],
+                'スライド': ['すらいど', 'スライド'],
+                'ぱずる': ['パズル', 'ぱずる', 'パズル'],
+                'パズル': ['ぱずる', 'パズル'],
+                'えんばっく': ['Nバック', 'えんばっく', 'エンバック', 'n-back', 'nバック'],
+                'Nバック': ['えんばっく', 'エンバック', 'n-back', 'nバック'],
+                'エンバック': ['Nバック', 'えんばっく', 'n-back', 'nバック'],
+                'nバック': ['Nバック', 'えんばっく', 'エンバック', 'n-back'],
+                'n-back': ['Nバック', 'えんばっく', 'エンバック', 'nバック'],
+                'ばんづけ': ['番付', 'ばんづけ', 'バンヅケ'],
+                '番付': ['ばんづけ', 'バンヅケ', '番付'],
+                'バンヅケ': ['番付', 'ばんづけ', 'バンヅケ'],
+                'のうねんれい': ['脳年齢', 'のうねんれい', 'ノウネンレイ'],
+                '脳年齢': ['のうねんれい', 'ノウネンレイ', '脳年齢'],
+                'ノウネンレイ': ['脳年齢', 'のうねんれい', 'ノウネンレイ'],
+                'きおく': ['記憶', 'きおく', 'キオク'],
+                '記憶': ['きおく', 'キオク', '記憶'],
+                'キオク': ['記憶', 'きおく', 'キオク'],
+                'けいさん': ['計算', 'けいさん', 'ケイサン'],
+                '計算': ['けいさん', 'ケイサン', '計算'],
+                'ケイサン': ['計算', 'けいさん', 'ケイサン']
+            };
+            
+            // クエリの各単語に対して表記ゆれを追加（完全一致のみ）
+            const queryWords = query.split(' ').filter(word => word.length > 0);
+            queryWords.forEach(word => {
+                const normalizedWord = normalizeText(word);
+                
+                // 完全一致の場合のみバリエーションを追加
+                if (commonVariations[word]) {
+                    commonVariations[word].forEach(variant => variations.add(variant));
+                }
+                if (commonVariations[normalizedWord] && normalizedWord !== word) {
+                    commonVariations[normalizedWord].forEach(variant => variations.add(variant));
+                }
+            });
+            
+            return Array.from(variations);
+        }
+        
+        // ひらがな変換マップ（よく使われる漢字のみ）
+        const kanjiToHiragana = {
+            '間違': 'まちが', '探': 'さが', '検索': 'けんさく', '機種変更': 'きしゅへんこう',
+            'データ': 'でーた', '引継': 'ひきつ', '登録': 'とうろく', '申込': 'もうしこ',
+            '確認': 'かくにん', '方法': 'ほうほう', '設定': 'せってい', '変更': 'へんこう',
+            '削除': 'さくじょ', '追加': 'ついか', '問合': 'といあわ', '友達': 'ともだち',
+            '紹介': 'しょうかい', 'ポイント': 'ぽいんと', '歩数': 'ほすう', '記録': 'きろく',
+            '脳': 'のう', '健康': 'けんこう', '年齢': 'ねんれい', '生年月日': 'せいねんがっぴ',
+            '入力': 'にゅうりょく', '表示': 'ひょうじ', '画面': 'がめん', '反映': 'はんえい',
+            '利用': 'りよう', '使用': 'しよう', '起動': 'きどう', '終了': 'しゅうりょう',
+            'アプリ': 'あぷり', 'スマホ': 'すまほ', 'パスワード': 'ぱすわーど', '開発': 'かいはつ'
+        };
+
+        function toHiragana(text) {
+            let result = text.toLowerCase()
+                .replace(/[Ａ-Ｚａ-ｚ０-９]/g, (s) => String.fromCharCode(s.charCodeAt(0) - 0xFEE0))
+                .replace(/[ァ-ヶ]/g, (s) => String.fromCharCode(s.charCodeAt(0) - 0x60))
+                .replace(/[　\\s]+/g, " ")
+                .replace(/[ー−―]/g, "")
+                .replace(/[！？。、，]/g, "");
+
+            // 漢字をひらがなに変換
+            for (let [kanji, hiragana] of Object.entries(kanjiToHiragana)) {
+                result = result.split(kanji).join(hiragana);
+            }
+
+            return result.trim();
+        }
+
+        function searchFAQ(searchTerm) {
+            const faqItems = document.querySelectorAll(".faq-item");
+            if (!searchTerm.trim()) {
+                faqItems.forEach(item => item.style.display = "block");
+                const firstTab = document.querySelector(".tab.active") || document.querySelector(".tab");
+                if (firstTab) filterFAQ(firstTab.textContent.trim(), firstTab);
+                return;
+            }
+
+            const searchQuery = toHiragana(searchTerm);
+            const searchTerms = searchQuery.split(" ").filter(t => t.length > 0);
+
+            faqItems.forEach(item => {
+                const questionText = toHiragana(item.querySelector(".faq-question-text").textContent);
+                const answerText = toHiragana(item.querySelector(".answer-content").textContent);
+                const allText = questionText + " " + answerText;
+                const matches = searchTerms.every(term => allText.includes(term));
+                item.style.display = matches ? "block" : "none";
+            });
+            document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
+        }
+        
+        
+        // お気に入り機能
+        function loadFavorites() {
+            const favorites = JSON.parse(localStorage.getItem('faqFavorites') || '[]');
+            return favorites;
+        }
+
+        function saveFavorites(favorites) {
+            localStorage.setItem('faqFavorites', JSON.stringify(favorites));
+        }
+
+        function toggleFavorite(faqId) {
+            const favorites = loadFavorites();
+            const index = favorites.indexOf(faqId);
+            
+            if (index > -1) {
+                favorites.splice(index, 1);
+            } else {
+                favorites.push(faqId);
+            }
+            
+            saveFavorites(favorites);
+            updateFavoriteButtons();
+            updateFavoritesList();
+        }
+
+        function updateFavoriteButtons() {
+            const favorites = loadFavorites();
+            const buttons = document.querySelectorAll('.favorite-btn');
+            
+            buttons.forEach(button => {
+                const faqId = button.getAttribute('onclick').match(/toggleFavorite\('([^']+)'\)/)?.[1];
+                if (faqId && favorites.includes(faqId)) {
+                    button.classList.add('active');
+                    button.textContent = '登録済み';
+                    button.title = 'お気に入りから削除';
+                } else {
+                    button.classList.remove('active');
+                    button.textContent = 'お気に入り登録';
+                    button.title = 'お気に入りに登録';
+                }
+            });
+        }
+
+        function updateFavoritesList() {
+            const favorites = loadFavorites();
+            const favoritesSection = document.getElementById('favoritesSection');
+            const favoritesContent = document.getElementById('favoritesContent');
+            const favoritesEmpty = document.getElementById('favoritesEmpty');
+            
+            if (favorites.length > 0) {
+                favoritesSection.style.display = 'block';
+                favoritesEmpty.style.display = 'none';
+                
+                let html = '';
+                favorites.forEach(faqId => {
+                    const faqItem = document.getElementById('answer-' + faqId)?.closest('.faq-item');
+                    if (faqItem) {
+                        const questionText = faqItem.querySelector('.faq-question-text').textContent.trim();
+                        html += `
+                            <div class="favorite-item">
+                                <div class="favorite-item-text" onclick="scrollToFAQ('${faqId}')">${questionText}</div>
+                                <button class="remove-favorite" onclick="toggleFavorite('${faqId}')" title="お気に入りから削除">×</button>
+                            </div>
+                        `;
+                    }
+                });
+                favoritesContent.innerHTML = html;
+            } else {
+                favoritesSection.style.display = 'none';
+            }
+        }
+
+        function toggleFavoritesList() {
+            const favoritesList = document.getElementById('favoritesList');
+            const toggleText = document.getElementById('favoritesToggleText');
+            
+            if (favoritesList.classList.contains('show')) {
+                favoritesList.classList.remove('show');
+                toggleText.textContent = '表示';
+            } else {
+                favoritesList.classList.add('show');
+                toggleText.textContent = '非表示';
+            }
+        }
+
+        function scrollToFAQ(faqId) {
+            const faqItem = document.getElementById('answer-' + faqId)?.closest('.faq-item');
+            if (faqItem) {
+                faqItem.scrollIntoView({ behavior: 'smooth' });
+                // FAQ項目をハイライト
+                faqItem.style.boxShadow = '0 0 15px rgba(33, 150, 243, 0.5)';
+                setTimeout(() => {
+                    faqItem.style.boxShadow = '';
+                }, 2000);
+            }
+        }
+
+        // ページ読み込み時にお気に入りを初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            updateFavoriteButtons();
+            updateFavoritesList();
+        });
+
+        function openImageModal(imageUrl) {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImage");
+            modal.style.display = "block";
+            modalImg.src = imageUrl;
+        }
+
+        function openHtmlModal(htmlFile, event) {
+            // インライン表示に変更
+            if (htmlFile === 'Android端末電源切る方法.html') {
+                showInlineModal('restart-modal');
+            } else if (htmlFile === 'battery-optimizer-simple.html') {
+                showInlineModal('battery-modal');  
+            } else if (htmlFile === 'chrome-update-guide.html') {
+                showInlineModal('chrome-modal');
+            } else if (htmlFile === 'friend-referral-guide.html') {
+                showInlineModal('friend-referral-modal');
+            }
+        }
+
+        // インライン表示機能
+        function showInlineModal(modalId) {
+            hideAllModals();
+            const modal = document.getElementById(modalId);
+            const modalArea = document.getElementById('modal-area');
+            if (modal && modalArea) {
+                // モーダルをコピーしてタブの上の専用エリアに表示
+                modalArea.innerHTML = modal.outerHTML;
+                const displayedModal = modalArea.querySelector('.inline-modal');
+                displayedModal.style.display = 'block';
+                
+                // バッテリーモーダルの場合は、イベントハンドラーを再設定
+                if (modalId === 'battery-modal') {
+                    const batteryHeaders = displayedModal.querySelectorAll('[onclick*="toggleManufacturer"]');
+                    batteryHeaders.forEach(header => {
+                        // 既存のonclickを削除してイベントリスナーを追加
+                        header.removeAttribute('onclick');
+                        header.addEventListener('click', function() {
+                            toggleManufacturer(this);
+                        });
+                    });
+                }
+                
+                // タブの上に表示されたモーダルまでスクロール
+                modalArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function hideInlineModal(modalId) {
+            const modalArea = document.getElementById('modal-area');
+            if (modalArea) {
+                modalArea.innerHTML = '';
+            }
+        }
+        
+        // 全てのモーダルを閉じる汎用関数
+        function closeAllModals() {
+            const modalArea = document.getElementById('modal-area');
+            if (modalArea) {
+                modalArea.innerHTML = '';
+            }
+        }
+
+        function toggleChromeSection(section) {
+            const content = section.nextElementSibling;
+            const icon = section.querySelector('.toggle-icon');
+            
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+                section.classList.add('active');
+                icon.textContent = '▲';
+            } else {
+                content.style.display = 'none';
+                section.classList.remove('active');
+                icon.textContent = '▼';
+            }
+        }
+
+        function toggleChromeUpdateSection(section) {
+            const content = section.nextElementSibling;
+            const icon = section.querySelector('.toggle-icon');
+            
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+                section.classList.add('active');
+                icon.textContent = '▲';
+            } else {
+                content.style.display = 'none';
+                section.classList.remove('active');
+                icon.textContent = '▼';
+            }
+        }
+
+        function toggleManufacturer(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('.toggle-icon');
+            
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                header.classList.remove('active');
+                icon.textContent = '▼';
+            } else {
+                content.classList.add('active');
+                header.classList.add('active');
+                icon.textContent = '▲';
+            }
+        }
+
+        function hideAllModals() {
+            const modals = document.querySelectorAll('.inline-modal');
+            modals.forEach(modal => {
+                modal.style.display = 'none';
+            });
+        }
+        
+        function closeImageModal() {
+            document.getElementById("imageModal").style.display = "none";
+        }
+        
+        // 友達紹介ガイドのコンテンツ切り替え関数
+        function showReferrerContent() {
+            const referrerContent = document.getElementById('referrer-content');
+            const refereeContent = document.getElementById('referee-content');
+            
+            if (referrerContent && refereeContent) {
+                referrerContent.style.display = 'block';
+                refereeContent.style.display = 'none';
+            }
+        }
+
+        function showRefereeContent() {
+            const referrerContent = document.getElementById('referrer-content');
+            const refereeContent = document.getElementById('referee-content');
+            
+            if (referrerContent && refereeContent) {
+                referrerContent.style.display = 'none';
+                refereeContent.style.display = 'block';
+            }
+        }
+
+        window.addEventListener("load", function() {
+            const firstTab = document.querySelector(".tab");
+            if (firstTab) filterFAQ(firstTab.textContent.trim(), firstTab);
+        });
+    </script>
+
+    <div id="imageModal">
+        <span class="close" onclick="closeImageModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <!-- インラインモーダル：Android再起動手順 -->
+    <div id="restart-modal" class="inline-modal" style="display: none; background: white; border-radius: 15px; box-shadow: 0 15px 30px rgba(0,0,0,0.2); margin: 20px auto; overflow: hidden; max-width: 600px;">
+        <div style="background: linear-gradient(45deg, #FF6B6B, #4ECDC4); color: white; padding: 20px; text-align: center; position: relative;">
+            <h2>📱 Android端末で電源を切る方法</h2>
+            <button onclick="hideInlineModal('restart-modal')" style="position: absolute; top: 15px; right: 20px; background: none; border: none; color: white; font-size: 24px; cursor: pointer;">×</button>
+            <p style="margin: 5px 0 0 0; font-size: 0.9em; opacity: 0.9;">物理ボタン組み合わせ</p>
+        </div>
+        <div style="padding: 25px;">
+            <div style="display: flex; align-items: center; justify-content: center; margin: 20px 0; gap: 15px;">
+                <div style="width: 80px; height: 140px; background: #34495e; border-radius: 15px; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+                    <div style="width: 60px; height: 100px; background: #2c3e50; border-radius: 6px; position: absolute; top: 20px; left: 10px;"></div>
+                    <div style="width: 6px; height: 25px; background: #e74c3c; border-radius: 3px; position: absolute; right: -3px; top: 40px; animation: pulse 2s infinite;"></div>
+                    <div style="width: 6px; height: 18px; background: #3498db; border-radius: 3px; position: absolute; left: -3px; top: 35px; animation: pulse 2s infinite;"></div>
+                    <div style="width: 6px; height: 18px; background: #3498db; border-radius: 3px; position: absolute; left: -3px; top: 57px; animation: pulse 2s infinite;"></div>
+                </div>
+                <span style="font-size: 1.8em; color: #34495e; font-weight: bold;">+</span>
+                <div style="font-size: 0.9em; line-height: 1.3;">
+                    <div style="color: #e74c3c; font-weight: bold;">電源ボタン</div>
+                    <div style="color: #3498db; font-weight: bold;">音量ボタン</div>
+                    <div style="font-size: 0.8em; color: #666;">（上 または 下）</div>
+                </div>
+                <span style="font-size: 1.8em; color: #27ae60;">→</span>
+                <div style="background: #27ae60; color: white; padding: 12px 18px; border-radius: 20px; font-weight: bold; font-size: 0.9em;">電源メニュー<br>表示</div>
+            </div>
+
+            <div style="background: #f8f9ff; border-radius: 10px; padding: 20px; margin: 20px 0; text-align: left;">
+                <div style="display: flex; align-items: center; margin: 12px 0; font-size: 0.95em;">
+                    <div style="background: #4ECDC4; color: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold; font-size: 0.9em; flex-shrink: 0;">1</div>
+                    <div>電源ボタン + <span style="background: #f39c12; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold;">音量上</span> を同時長押し</div>
+                </div>
+                <div style="display: flex; align-items: center; margin: 12px 0; font-size: 0.95em;">
+                    <div style="background: #4ECDC4; color: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold; font-size: 0.9em; flex-shrink: 0;">2</div>
+                    <div>ダメなら電源ボタン + <span style="background: #f39c12; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold;">音量下</span> を試す</div>
+                </div>
+                <div style="display: flex; align-items: center; margin: 12px 0; font-size: 0.95em;">
+                    <div style="background: #4ECDC4; color: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold; font-size: 0.9em; flex-shrink: 0;">3</div>
+                    <div>電源メニューから「電源を切る」を選択</div>
+                </div>
+            </div>
+
+            <div style="background: #e8f4fd; border: 1px solid #3498db; padding: 15px; border-radius: 8px; font-size: 0.9em; text-align: center;">
+                <strong>💡 ポイント</strong><br>
+                機種によって上下どちらかが有効です
+            </div>
+        </div>
+    </div>
+
+    <!-- 他のモーダルも同様に追加 -->
+    <div id="battery-modal" class="inline-modal" style="display: none;">
+        <div class="container" style="position: relative; background: white; border-radius: 15px; box-shadow: 0 15px 30px rgba(0,0,0,0.2); margin: 20px auto; padding: 20px;">
+            <button onclick="hideInlineModal('battery-modal')" style="position: absolute; top: 15px; right: 20px; background: rgba(0,0,0,0.1); border: none; font-size: 24px; cursor: pointer; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #666; z-index: 1000; transition: all 0.2s;" onmouseover="this.style.background='rgba(255,0,0,0.2)'; this.style.color='red';" onmouseout="this.style.background='rgba(0,0,0,0.1)'; this.style.color='#666';">×</button>
+            <h1 style="margin-top: 10px;">🧠 脳にいいアプリ - バッテリー最適化無効化ガイド</h1>
+            <p style="text-align: center; color: #7f8c8d;">お使いのメーカーをタップして設定手順を確認してください</p>
+            
+                <!-- Samsung（国内シェア1位） -->
+                <div class="manufacturer-item">
+                    <div class="manufacturer-header" onclick="toggleManufacturer(this)">
+                        <span>📱 Samsung（Galaxy）</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="manufacturer-content">
+                        <div class="steps">
+                            <div class="step"><strong>1.</strong> 設定 > アプリ > <span class="app-name">脳にいいアプリ</span></div>
+                            <div class="step"><strong>2.</strong> バッテリー > バッテリー使用量を最適化</div>
+                            <div class="step"><strong>3.</strong> 上部で「すべて」に変更 > <span class="app-name">脳にいいアプリ</span> をOFF</div>
+                            <div class="step"><strong>別の方法:</strong> 設定 > バッテリーとデバイスケア > バッテリー > バックグラウンド使用制限 > スリープしないアプリ > + で追加</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sharp（国内シェア2位） -->
+                <div class="manufacturer-item">
+                    <div class="manufacturer-header" onclick="toggleManufacturer(this)">
+                        <span>📱 Sharp（AQUOS）</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="manufacturer-content">
+                        <div class="steps">
+                            <div class="step"><strong>新機種:</strong> 設定 > アプリ > アプリのバッテリー使用量 > <span class="app-name">脳にいいアプリ</span> > 制限なし</div>
+                            <div class="step"><strong>旧機種:</strong> 設定 > アプリ > 特別なアプリアクセス > バッテリーの最適化 > すべてのアプリ > <span class="app-name">脳にいいアプリ</span> > 最適化しない</div>
+                            <div class="step"><strong>注意:</strong> AQUOS sense8/R8等の新機種は「長エネスイッチ」機能あり</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sony（国内シェア3位） -->
+                <div class="manufacturer-item">
+                    <div class="manufacturer-header" onclick="toggleManufacturer(this)">
+                        <span>📱 Sony（Xperia）</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="manufacturer-content">
+                        <div class="steps">
+                            <div class="step"><strong>方法1:</strong> 設定 > アプリ > <span class="app-name">脳にいいアプリ</span> > アプリのバッテリー使用量 > 制限なし</div>
+                            <div class="step"><strong>方法2:</strong> 設定 > バッテリー > バッテリー使用量 > <span class="app-name">脳にいいアプリ</span> > 制限なし</div>
+                            <div class="step"><strong>方法3:</strong> 設定 > バッテリー > 右上の三点メニュー > バッテリー最適化 > <span class="app-name">脳にいいアプリ</span></div>
+                            <div class="step"><strong>方法4:</strong> 設定 > アプリ > 特別なアプリアクセス > バッテリー最適化 > <span class="app-name">脳にいいアプリ</span> > 最適化しない</div>
+                            <div class="step"><strong>古い機種:</strong> 設定 > アプリと通知 > 詳細設定 > 特別なアプリアクセス > 省電力機能 > <span class="app-name">脳にいいアプリ</span> > 除外</div>
+                            <div class="step"><strong>注意:</strong> STAMINAモードの「バッテリー時間を優先」設定は避けてください</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Google（国内シェア4位） -->
+                <div class="manufacturer-item">
+                    <div class="manufacturer-header" onclick="toggleManufacturer(this)">
+                        <span>📱 Google（Pixel）</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="manufacturer-content">
+                        <div class="steps">
+                            <div class="step"><strong>1.</strong> 設定 > アプリ > アプリのバッテリー使用量</div>
+                            <div class="step"><strong>2.</strong> すべてのアプリ > <span class="app-name">脳にいいアプリ</span></div>
+                            <div class="step"><strong>3.</strong> バックグラウンド使用を許可 をON</div>
+                            <div class="step"><strong>4.</strong> 「バックグラウンド使用を許可」の<span style="color: #e74c3c; font-weight: bold;">文字をタップ</span></div>
+                            <div class="step"><strong>5.</strong> 制限なし を選択</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Kyocera（国内シェア5位） -->
+                <div class="manufacturer-item">
+                    <div class="manufacturer-header" onclick="toggleManufacturer(this)">
+                        <span>📱 Kyocera（BASIO・TORQUE）</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="manufacturer-content">
+                        <div class="steps">
+                            <div class="step"><strong>方法1:</strong> 設定 > アプリと通知 > 特別なアプリアクセス > バッテリーの最適化 > すべてのアプリ > <span class="app-name">脳にいいアプリ</span> > 最適化しない</div>
+                            <div class="step"><strong>方法2:</strong> 設定 > アプリ > <span class="app-name">脳にいいアプリ</span> > バッテリー > 制限なし</div>
+                            <div class="step"><strong>BASIO4:</strong> ホーム画面右スクロール > 設定 > その他 > 電池</div>
+                            <div class="step"><strong>TORQUE G06:</strong> バッテリーケアモード機能あり（設定>バッテリー）</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FCNT（国内シェア6位） -->
+                <div class="manufacturer-item">
+                    <div class="manufacturer-header" onclick="toggleManufacturer(this)">
+                        <span>📱 FCNT（arrows・らくらくスマホ）</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="manufacturer-content">
+                        <div class="steps">
+                            <div class="step"><strong>1.</strong> 設定 > アプリ > <span class="app-name">脳にいいアプリ</span></div>
+                            <div class="step"><strong>2.</strong> バッテリー > バッテリーの最適化</div>
+                            <div class="step"><strong>3.</strong> すべてのアプリ > <span class="app-name">脳にいいアプリ</span> > 最適化しない</div>
+                            <div class="step" style="background: linear-gradient(135deg, #ff6b6b, #ffa500); color: white; border-left: 4px solid #e74c3c; font-weight: bold; padding: 15px; border-radius: 8px; margin: 15px 0;"><strong>📱 らくらくスマホ手順:</strong></div>
+                            <div class="step"><strong>1.</strong> ホーム画面から「設定」を開く（歯車アイコン）</div>
+                            <div class="step"><strong>2.</strong> 「その他」をタップ</div>
+                            <div class="step"><strong>3.</strong> 「高度な設定」を選択</div>
+                            <div class="step"><strong>4.</strong> 「電池の最適化」を開く</div>
+                            <div class="step"><strong>5.</strong> 画面右上や上部のメニューから「すべてのアプリ」を選択<br>※初期状態では「最適化されていないアプリ」しか表示されない場合があります</div>
+                            <div class="step"><strong>6.</strong> アプリ一覧から <span class="app-name">脳にいいアプリ</span> を探してタップ</div>
+                            <div class="step"><strong>7.</strong> 「最適化しない」を選び、OK または 保存 を押す</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Xiaomi（海外シェア高、国内7位） -->
+                <div class="manufacturer-item">
+                    <div class="manufacturer-header" onclick="toggleManufacturer(this)">
+                        <span>📱 Xiaomi（MIUI）</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="manufacturer-content">
+                        <div class="steps">
+                            <div class="step"><strong>1.</strong> 設定 > アプリ > <span class="app-name">脳にいいアプリ</span></div>
+                            <div class="step"><strong>2.</strong> バッテリーセーバー > 制限なし</div>
+                            <div class="step"><strong>3.</strong> セキュリティアプリ > 権限 > 自動起動 > <span class="app-name">脳にいいアプリ</span> を有効化</div>
+                            <div class="step"><strong>4.</strong> 最近使用したアプリで <span class="app-name">脳にいいアプリ</span> を下にドラッグしてロック</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- OPPO（海外シェア高、国内8位） -->
+                <div class="manufacturer-item">
+                    <div class="manufacturer-header" onclick="toggleManufacturer(this)">
+                        <span>📱 OPPO（ColorOS）</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="manufacturer-content">
+                        <div class="steps">
+                            <div class="step"><strong>1.</strong> 設定 > バッテリー > その他のバッテリー設定 > バッテリー使用量の最適化</div>
+                            <div class="step"><strong>2.</strong> <span class="app-name">脳にいいアプリ</span> を選択 > 最適化しない</div>
+                            <div class="step"><strong>3.</strong> 設定 > バッテリー > アプリバッテリー管理 > <span class="app-name">脳にいいアプリ</span></div>
+                            <div class="step"><strong>4.</strong> バックグラウンド動作を許可・自動起動を許可 をON</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Huawei（国内シェア低下） -->
+                <div class="manufacturer-item">
+                    <div class="manufacturer-header" onclick="toggleManufacturer(this)">
+                        <span>📱 Huawei（EMUI）</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="manufacturer-content">
+                        <div class="steps">
+                            <div class="step"><strong>1.</strong> 設定 > アプリ > <span class="app-name">脳にいいアプリ</span></div>
+                            <div class="step"><strong>2.</strong> バッテリー > 省電力の詳細設定</div>
+                            <div class="step"><strong>3.</strong> バックグラウンドで実行 を有効化</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ZTE（国内シェア低） -->
+                <div class="manufacturer-item">
+                    <div class="manufacturer-header" onclick="toggleManufacturer(this)">
+                        <span>📱 ZTE（MiFavor）</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="manufacturer-content">
+                        <div class="steps">
+                            <div class="step"><strong>1.</strong> 設定 > アプリ管理 > <span class="app-name">脳にいいアプリ</span></div>
+                            <div class="step"><strong>2.</strong> 省電力管理 > 保護されたアプリ</div>
+                            <div class="step"><strong>3.</strong> <span class="app-name">脳にいいアプリ</span> を保護対象に追加</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- その他メーカー（まとめて表示） -->
+                <div class="manufacturer-item">
+                    <div class="manufacturer-header" onclick="toggleManufacturer(this)">
+                        <span>📱 その他のメーカー（OnePlus, Realme, Vivo, Honor, ASUS, LG, HTC等）</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="manufacturer-content">
+                        <!-- OnePlus -->
+                        <div class="steps">
+                            <h4>📱 OnePlus（OxygenOS）</h4>
+                            <div class="step"><strong>1.</strong> 設定 > アプリ管理 > <span class="app-name">脳にいいアプリ</span></div>
+                            <div class="step"><strong>2.</strong> バッテリー使用量 > バッテリーの最適化</div>
+                            <div class="step"><strong>3.</strong> 最適化しない を選択</div>
+                        </div>
+                        
+                        <!-- Realme -->
+                        <div class="steps">
+                            <h4>📱 Realme（Realme UI）</h4>
+                            <div class="step"><strong>1.</strong> 設定 > アプリ管理 > <span class="app-name">脳にいいアプリ</span></div>
+                            <div class="step"><strong>2.</strong> バッテリー使用量 > バッテリーの最適化をしない</div>
+                            <div class="step"><strong>3.</strong> 自動起動 > 許可する</div>
+                        </div>
+                        
+                        <!-- Vivo -->
+                        <div class="steps">
+                            <h4>📱 Vivo（Funtouch OS）</h4>
+                            <div class="step"><strong>1.</strong> 設定 > バッテリー > バックグラウンドアプリ更新</div>
+                            <div class="step"><strong>2.</strong> <span class="app-name">脳にいいアプリ</span> > 常に許可</div>
+                            <div class="step"><strong>3.</strong> 自動起動管理 > 自動起動を許可</div>
+                        </div>
+                        
+                        <!-- Honor -->
+                        <div class="steps">
+                            <h4>📱 Honor（Magic UI）</h4>
+                            <div class="step"><strong>1.</strong> 設定 > アプリ > <span class="app-name">脳にいいアプリ</span></div>
+                            <div class="step"><strong>2.</strong> バッテリー > 省電力の詳細設定</div>
+                            <div class="step"><strong>3.</strong> バックグラウンドで実行 を有効化</div>
+                        </div>
+                        
+                        <!-- ASUS -->
+                        <div class="steps">
+                            <h4>📱 ASUS（ZenUI）</h4>
+                            <div class="step"><strong>1.</strong> 設定 > アプリと通知 > <span class="app-name">脳にいいアプリ</span></div>
+                            <div class="step"><strong>2.</strong> モバイルマネージャー > 自動起動マネージャー</div>
+                            <div class="step"><strong>3.</strong> <span class="app-name">脳にいいアプリ</span> を許可</div>
+                        </div>
+                        
+                        <!-- LG -->
+                        <div class="steps">
+                            <h4>📱 LG（LG UX）</h4>
+                            <div class="step"><strong>1.</strong> 設定 > 一般 > アプリ > <span class="app-name">脳にいいアプリ</span></div>
+                            <div class="step"><strong>2.</strong> バッテリー使用量 > バッテリーの最適化</div>
+                            <div class="step"><strong>3.</strong> 最適化しない を選択</div>
+                        </div>
+                        
+                        <!-- HTC -->
+                        <div class="steps">
+                            <h4>📱 HTC（HTC Sense）</h4>
+                            <div class="step"><strong>1.</strong> 設定 > アプリと通知 > <span class="app-name">脳にいいアプリ</span></div>
+                            <div class="step"><strong>2.</strong> バッテリー > バッテリーの最適化</div>
+                            <div class="step"><strong>3.</strong> 最適化しない を選択</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 汎用手順 -->
+                <div class="manufacturer-item">
+                    <div class="manufacturer-header" onclick="toggleManufacturer(this)">
+                        <span>📱 汎用手順（上記で見つからない場合）</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="manufacturer-content">
+                        <div class="steps">
+                            <div class="step"><strong>1.</strong> <span class="app-name">脳にいいアプリ</span> のアイコンを長押し</div>
+                            <div class="step"><strong>2.</strong> アプリ情報 をタップ</div>
+                            <div class="step"><strong>3.</strong> バッテリー をタップ</div>
+                            <div class="step"><strong>4.</strong> バッテリーの最適化 をタップ</div>
+                            <div class="step"><strong>5.</strong> 最適化しない を選択</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="restart-notice">
+                    <strong>🔄 設定変更後最後に端末の再起動をお願いします</strong><br>
+                    端末の再起動をするとセンサーの動きが元に戻る可能性があります
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="chrome-modal" class="inline-modal" style="display: none; background: white; border-radius: 15px; box-shadow: 0 15px 30px rgba(0,0,0,0.2); margin: 20px auto; overflow: hidden; max-width: 800px;">
+        <div style="background: linear-gradient(45deg, #4285f4, #34a853); color: white; padding: 20px; text-align: center; position: relative;">
+            <h2 style="color: white;">🖥️ Chrome設定・更新ガイド</h2>
+            <button onclick="hideInlineModal('chrome-modal')" style="position: absolute; top: 15px; right: 20px; background: none; border: none; color: white; font-size: 24px; cursor: pointer;">×</button>
+            <p style="margin: 5px 0 0 0; font-size: 0.9em; opacity: 0.9; color: white;">画面表示崩れ解決手順</p>
+        </div>
+        <div style="padding: 25px;">
+            <!-- Chrome設定手順 -->
+            <div style="margin: 15px 0; padding: 15px; background: #e8f4fd; border: 1px solid #4285f4; border-radius: 8px;">
+                <h3 style="color: #2c3e50; margin-top: 0;">① 標準ブラウザをChromeに変更する手順</h3>
+                
+                <h4 style="color: #2c3e50;">📱 BASIO端末のChrome設定手順</h4>
+                <div style="margin: 8px 0; padding: 10px; background: white; border-left: 4px solid #4285f4; border-radius: 4px;"><strong>1.</strong> 設定アプリを開く</div>
+                <div style="margin: 8px 0; padding: 10px; background: white; border-left: 4px solid #4285f4; border-radius: 4px;"><strong>2.</strong> その他をタップ</div>
+                <div style="margin: 8px 0; padding: 10px; background: white; border-left: 4px solid #4285f4; border-radius: 4px;"><strong>3.</strong> アプリと通知をタップ</div>
+                <div style="margin: 8px 0; padding: 10px; background: white; border-left: 4px solid #4285f4; border-radius: 4px;"><strong>4.</strong> デフォルトのアプリをタップ</div>
+                <div style="margin: 8px 0; padding: 10px; background: white; border-left: 4px solid #4285f4; border-radius: 4px;"><strong>5.</strong> <span style="background: #ff9800; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Chrome</span>を選択</div>
+                
+                <h4 style="color: #2c3e50;">📱 Galaxy端末のChrome設定手順</h4>
+                <div style="margin: 8px 0; padding: 10px; background: white; border-left: 4px solid #4285f4; border-radius: 4px;"><strong>1.</strong> 設定アプリを開く</div>
+                <div style="margin: 8px 0; padding: 10px; background: white; border-left: 4px solid #4285f4; border-radius: 4px;"><strong>2.</strong> アプリをタップ</div>
+                <div style="margin: 8px 0; padding: 10px; background: white; border-left: 4px solid #4285f4; border-radius: 4px;"><strong>3.</strong> 右上の ⋮（三点メニュー）をタップ</div>
+                <div style="margin: 8px 0; padding: 10px; background: white; border-left: 4px solid #4285f4; border-radius: 4px;"><strong>4.</strong> 標準アプリをタップ</div>
+                <div style="margin: 8px 0; padding: 10px; background: white; border-left: 4px solid #4285f4; border-radius: 4px;"><strong>5.</strong> ブラウザアプリをタップ</div>
+                <div style="margin: 8px 0; padding: 10px; background: white; border-left: 4px solid #4285f4; border-radius: 4px;"><strong>6.</strong> <span style="background: #ff9800; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Chrome</span>を選択</div>
+            </div>
+            
+            <!-- アプリ更新手順 -->
+            <div style="margin: 15px 0; padding: 15px; background: #f0fff4; border: 1px solid #34a853; border-radius: 8px;">
+                <h3 style="color: #2c3e50; margin-top: 0;">② アプリのアップデート実施手順（Android）</h3>
+                <div style="margin: 8px 0; padding: 10px; background: white; border-left: 4px solid #34a853; border-radius: 4px;"><strong>1.</strong> Playストアを開く</div>
+                <div style="margin: 8px 0; padding: 10px; background: white; border-left: 4px solid #34a853; border-radius: 4px;"><strong>2.</strong> 右上の丸アイコン（プロフィール）をタップ</div>
+                <div style="margin: 8px 0; padding: 10px; background: white; border-left: 4px solid #34a853; border-radius: 4px;"><strong>3.</strong> アプリとデバイスの管理をタップ</div>
+                <div style="margin: 8px 0; padding: 10px; background: white; border-left: 4px solid #34a853; border-radius: 4px;"><strong>4.</strong> 利用可能なアップデートがあります の部分をタップ</div>
+                <div style="margin: 8px 0; padding: 10px; background: white; border-left: 4px solid #34a853; border-radius: 4px;"><strong>5.</strong> <span style="background: #e74c3c; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Android System WebView</span> と <span style="background: #e74c3c; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Google Chrome</span> を更新</div>
+                
+                <div style="background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 15px; border-radius: 6px; margin: 20px 0;">
+                    <strong>🎯 重要：</strong> 特に <span style="background: #e74c3c; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Android System WebView</span> と <span style="background: #e74c3c; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Google Chrome</span> の更新が重要です
+                </div>
+            </div>
+            
+            <div style="background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 20px; text-align: center; font-weight: bold; border-radius: 8px; margin: 20px 0;">
+                ✅ 設定完了後、アプリを再起動してください<br>
+                QRコードが正常に読み取れるようになります
+            </div>
+        </div>
+    </div>
+
+    <!-- 友達紹介ガイドモーダル -->
+    <div id="friend-referral-modal" class="inline-modal" style="display: none; background: white; border-radius: 15px; box-shadow: 0 15px 30px rgba(0,0,0,0.2); margin: 20px auto; overflow: hidden; max-width: 1000px;">
+        <div style="background: linear-gradient(135deg, #0d4f1c 0%, #2e7d32 25%, #4caf50 50%, #ffb300 75%, #ff8f00 100%); color: white; padding: 20px; text-align: center; position: relative;">
+            <h2 style="color: white;">👥 【廿日市市】てくポ お友達紹介ガイド</h2>
+            <button onclick="hideInlineModal('friend-referral-modal')" style="position: absolute; top: 15px; right: 20px; background: none; border: none; color: white; font-size: 24px; cursor: pointer;">×</button>
+            <p style="margin: 5px 0 0 0; font-size: 0.9em; opacity: 0.9; color: white;">正しい手順をご案内します</p>
+        </div>
+        <div style="padding: 25px;">
+            
+            <!-- 立場選択ボタン -->
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h3 style="color: #2c3e50; margin-bottom: 20px;">🤔 あなたはどちらですか？</h3>
+                <p style="color: #666; margin-bottom: 30px;">正しい手順をご案内するため、あなたの立場を選択してください</p>
+                
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    <button onclick="showReferrerContent()" style="background: linear-gradient(135deg, #4caf50, #2e7d32); color: white; border: none; padding: 25px 40px; border-radius: 20px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 8px 24px rgba(46, 125, 50, 0.3); min-width: 200px;">
+                        <div>👥 紹介する人</div>
+                        <div style="font-size: 0.9rem; margin-top: 5px;">お友達にIDを教える</div>
+                    </button>
+                    <button onclick="showRefereeContent()" style="background: linear-gradient(135deg, #ffb300, #ff9800); color: white; border: none; padding: 25px 40px; border-radius: 20px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 8px 24px rgba(255, 179, 0, 0.3); min-width: 200px;">
+                        <div>🎯 紹介された人</div>
+                        <div style="font-size: 0.9rem; margin-top: 5px;">IDを教えてもらった</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 紹介する人向けコンテンツ -->
+            <div id="referrer-content" style="display: none;">
+                <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, #e8f5e8 0%, #f0fff0 100%); border: 2px solid #4caf50; border-radius: 15px; margin-bottom: 20px;">
+                    <div style="display: inline-flex; align-items: center; gap: 12px; padding: 15px 30px; border-radius: 50px; font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); background: linear-gradient(135deg, #4caf50, #2e7d32); color: white;">
+                        <span>👥</span>
+                        <span>あなた：紹介する人</span>
+                    </div>
+                    <h2 style="color: #2e7d32; font-size: 2rem; margin-bottom: 10px;">お友達にIDを教えるだけ！</h2>
+                    <p style="color: #666; font-size: 1.1rem;">申請は絶対にしないでください</p>
+                </div>
+
+                <!-- 重要な警告 -->
+                <div style="background: linear-gradient(135deg, #d32f2f, #c62828); color: white; padding: 30px; border-radius: 15px; margin: 20px 0; text-align: center; font-size: 1.2rem; font-weight: 700; box-shadow: 0 15px 30px rgba(211, 47, 47, 0.4); border: 3px solid #ffcdd2;">
+                    ⚠️ 重要：紹介者は申請フォームに入力禁止！<br>
+                    申請しても無効・無意味です
+                </div>
+
+                <!-- よくある勘違い -->
+                <div style="background: linear-gradient(135deg, #fff3e0, #ffe0b2); border: 3px solid #ff9800; border-radius: 15px; padding: 25px; margin: 20px 0;">
+                    <h3 style="color: #e65100; font-weight: 700; font-size: 1.2rem; margin-bottom: 15px;">💡 よくある勘違いを解消</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
+                        <div style="padding: 15px; border-radius: 10px; font-weight: 600; background: #ffebee; color: #c62828; border: 2px solid #e57373;">
+                            ❌ 間違い<br>
+                            「8回申請できる」
+                        </div>
+                        <div style="padding: 15px; border-radius: 10px; font-weight: 600; background: #e8f5e8; color: #2e7d32; border: 2px solid #81c784;">
+                            ✅ 正しい<br>
+                            「8人にIDを教える」
+                        </div>
+                    </div>
+                    <p style="color: #e65100; font-weight: 600; margin-top: 10px;">
+                        申請するのは「紹介された人」です！
+                    </p>
+                </div>
+
+                <!-- 手順 -->
+                <div style="background: rgba(255, 255, 255, 0.98); border-radius: 20px; padding: 30px; margin: 20px 0; box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);">
+                    <h3 style="color: #2e7d32; margin-bottom: 25px; font-size: 1.3rem;">🎯 あなたの役割（申請回数：0回）</h3>
+                    
+                    <div style="display: flex; align-items: flex-start; gap: 20px; margin-bottom: 25px; padding: 20px; background: #f8f9fa; border-radius: 15px; border-left: 5px solid #4caf50;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #4caf50, #2e7d32); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; flex-shrink: 0;">1</div>
+                        <div>
+                            <div style="font-weight: 600; font-size: 1.1rem; margin-bottom: 8px; color: #333;">ユーザーIDを確認</div>
+                            <div style="color: #666;">ハイフンを除いた数字のみを準備してください</div>
+                            <a href="https://www.city.hachioji.tokyo.jp/kurashi/welfare/001/p030878.html#91" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #ffb300, #ff9800); color: white; padding: 8px 16px; border-radius: 15px; text-decoration: none; font-weight: 600; margin-top: 10px; font-size: 0.9rem;">❓ ID確認方法</a>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: flex-start; gap: 20px; margin-bottom: 25px; padding: 20px; background: #f8f9fa; border-radius: 15px; border-left: 5px solid #4caf50;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #4caf50, #2e7d32); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; flex-shrink: 0;">2</div>
+                        <div>
+                            <div style="font-weight: 600; font-size: 1.1rem; margin-bottom: 8px; color: #333;">お友達にIDを教える（最大8人まで）</div>
+                            <div style="color: #666;">「私のユーザーIDは○○○です。申請フォームに入力してね」と伝える</div>
+                            <div style="background: #1b5e20; color: #a5d6a7; padding: 15px; border-radius: 10px; font-family: monospace; margin: 10px 0; border: 2px solid #4caf50;">
+                                例：「私のIDは123456789です。申請はあなたがしてください」
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: flex-start; gap: 20px; padding: 20px; background: #f8f9fa; border-radius: 15px; border-left: 5px solid #4caf50;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #4caf50, #2e7d32); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; flex-shrink: 0;">3</div>
+                        <div>
+                            <div style="font-weight: 600; font-size: 1.1rem; margin-bottom: 8px; color: #333;">待つだけ！</div>
+                            <div style="color: #666;">お友達が申請完了後、翌月10日頃に50ポイント獲得<br><strong style="color: #e65100;">あなたは何もする必要がありません</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 年間制限 -->
+                <div style="background: linear-gradient(135deg, #4caf50, #2e7d32); color: white; padding: 25px; border-radius: 15px; text-align: center; margin: 20px 0;">
+                    <h3 style="margin-bottom: 10px;">📊 年間制限について</h3>
+                    <p><strong>4月〜翌3月末で最大8人</strong>にIDを教えることができます<br>（申請回数ではありません！）</p>
+                </div>
+            </div>
+
+            <!-- 紹介された人向けコンテンツ -->
+            <div id="referee-content" style="display: none;">
+                <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, #fff8e1, #ffecb3); border: 2px solid #ffb300; border-radius: 15px; margin-bottom: 20px;">
+                    <div style="display: inline-flex; align-items: center; gap: 12px; padding: 15px 30px; border-radius: 50px; font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); background: linear-gradient(135deg, #ffb300, #ff9800); color: white;">
+                        <span>🎯</span>
+                        <span>あなた：紹介された人</span>
+                    </div>
+                    <h2 style="color: #ff9800; font-size: 2rem; margin-bottom: 10px;">申請フォームに入力してください！</h2>
+                    <p style="color: #666; font-size: 1.1rem;">50ポイントをゲットしましょう</p>
+                </div>
+
+                <!-- 手順 -->
+                <div style="background: rgba(255, 255, 255, 0.98); border-radius: 20px; padding: 30px; margin: 20px 0; box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);">
+                    <h3 style="color: #ff9800; margin-bottom: 25px; font-size: 1.3rem;">📝 あなたの手順（申請回数：1回のみ）</h3>
+                    
+                    <div style="display: flex; align-items: flex-start; gap: 20px; margin-bottom: 25px; padding: 20px; background: #fff8e1; border-radius: 15px; border-left: 5px solid #ffb300;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #ffb300, #ff9800); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; flex-shrink: 0;">1</div>
+                        <div>
+                            <div style="font-weight: 600; font-size: 1.1rem; margin-bottom: 8px; color: #333;">てくポユーザーであることを確認</div>
+                            <div style="color: #666;">脳にいいアプリホーム画面「てくポ情報」（紺色ボタン）でポイントが1ポイント以上あればてくポユーザーです</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: flex-start; gap: 20px; margin-bottom: 25px; padding: 20px; background: #fff8e1; border-radius: 15px; border-left: 5px solid #ffb300;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #ffb300, #ff9800); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; flex-shrink: 0;">2</div>
+                        <div>
+                            <div style="font-weight: 600; font-size: 1.1rem; margin-bottom: 8px; color: #333;">紹介者のユーザーID情報を聞く</div>
+                            <div style="color: #666;">紹介してくれた方からユーザーIDを教えてもらってください</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: flex-start; gap: 20px; margin-bottom: 25px; padding: 20px; background: #fff8e1; border-radius: 15px; border-left: 5px solid #ffb300;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #ffb300, #ff9800); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; flex-shrink: 0;">3</div>
+                        <div>
+                            <div style="font-weight: 600; font-size: 1.1rem; margin-bottom: 8px; color: #333;">友達紹介項目入力手順</div>
+                            <div style="color: #666;">廿日市市メニュー > 廿日市市からのお知らせ > <span style="background: #4caf50; color: white; padding: 2px 6px; border-radius: 4px; font-weight: 600;">【ポイントためる】自分も相手も50pt！ お友達紹介ポイント</span>　項目をタップ<br><span style="font-size: 0.85em; color: #4caf50;">※てくポユーザーになると上記項目が表示されます。</span></div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: flex-start; gap: 20px; margin-bottom: 25px; padding: 20px; background: #fff8e1; border-radius: 15px; border-left: 5px solid #ffb300;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #ffb300, #ff9800); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; flex-shrink: 0;">4</div>
+                        <div>
+                            <div style="font-weight: 600; font-size: 1.1rem; margin-bottom: 8px; color: #333;"><span style="color: #2196f3;">お友達紹介申請フォーム</span>の文字をタップ（リンク）</div>
+                            <div style="color: #666;">申請フォームのリンクをタップして開いてください</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: flex-start; gap: 20px; padding: 20px; background: #fff8e1; border-radius: 15px; border-left: 5px solid #ffb300;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #ffb300, #ff9800); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; flex-shrink: 0;">5</div>
+                        <div>
+                            <div style="font-weight: 600; font-size: 1.1rem; margin-bottom: 8px; color: #333;">ご紹介いただいた方のユーザーIDを入力して送信</div>
+                            <div style="color: #666;">「ご紹介いただいた方のユーザーIDを、数字9桁でご入力下さい。」の項目にお友達のユーザーIDを入力し送信</div>
+                            <div style="background: #1b5e20; color: #a5d6a7; padding: 15px; border-radius: 10px; font-family: monospace; margin: 10px 0; border: 2px solid #4caf50;">
+                                ❌ 間違い: 123-456-789<br>
+                                ✅ 正しい: 123456789 <span style="color: #ff8a80;">(ハイフンなし)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ポイント獲得タイミング -->
+                <div style="background: linear-gradient(135deg, #ffb300, #ff9800); color: white; padding: 25px; border-radius: 15px; text-align: center; margin: 20px 0;">
+                    <h3 style="margin-bottom: 10px;">🎉 ポイント獲得タイミング</h3>
+                    <p>申請完了後の<strong>翌月10日頃</strong>に紹介者・あなた双方に<strong>50ポイント</strong>が付与されます</p>
+                </div>
+
+                <!-- 注意事項 -->
+                <div style="background: #fff3e0; border: 2px solid #ff9800; border-radius: 15px; padding: 20px; margin: 20px 0;">
+                    <h3 style="color: #e65100; margin-bottom: 10px;">⚠️ 注意事項</h3>
+                    <ul style="color: #e65100; font-weight: 500;">
+                        <li>自分のユーザーIDは変更・削除しないでください</li>
+                        <li>1人につき1回のみ申請可能です</li>
+                        <li>重複申請は無効となります</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+        .inline-modal {
+            animation: slideDown 0.3s ease-out;
+        }
+        .manufacturer-content {
+            display: none;
+            padding: 0;
+        }
+        .manufacturer-content.active {
+            display: block;
+        }
+        .manufacturer-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 10px 0;
+            background: white;
+        }
+        .manufacturer-header {
+            padding: 15px 20px;
+            background: #f8f9fa;
+            cursor: pointer;
+            border-radius: 8px 8px 0 0;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .manufacturer-header:hover {
+            background: #e9ecef;
+        }
+        .manufacturer-header.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+        .steps {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .step {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+            border-left: 4px solid #3498db;
+        }
+        .app-name {
+            background: #e74c3c;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .restart-notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+    <!-- 機種変更・データ引継ぎガイドモーダル -->
+    <div id="device-transfer-modal" class="inline-modal" style="display: none; background: white; border-radius: 15px; box-shadow: 0 15px 30px rgba(0,0,0,0.2); margin: 20px auto; overflow: hidden; max-width: 1000px;">
+        <div style="background: linear-gradient(135deg, #0d4f1c 0%, #2e7d32 25%, #4caf50 50%, #ffb300 75%, #ff8f00 100%); color: white; padding: 20px; text-align: center; position: relative;">
+            <h2 style="color: white;">📱 機種変更・データ引継ぎガイド</h2>
+            <button onclick="hideInlineModal('device-transfer-modal')" style="position: absolute; top: 15px; right: 20px; background: none; border: none; color: white; font-size: 24px; cursor: pointer;">×</button>
+            <p style="margin: 5px 0 0 0; font-size: 0.9em; opacity: 0.9; color: white;">大切なデータを安全に引き継ぐ方法</p>
+        </div>
+        <div style="padding: 25px;">
+
+            <!-- 機種変更前に必ずやること -->
+            <h3 style="color: #2c3e50; margin-bottom: 20px; font-size: 1.3rem;">📝 機種変更前に必ずやること</h3>
+
+            <div style="background: linear-gradient(135deg, #fff3e0, #ffe0b2); border: 3px solid #ff9800; border-radius: 15px; padding: 25px; margin: 20px 0;">
+                <h3 style="color: #e65100; font-weight: 700; font-size: 1.2rem; margin-bottom: 15px;">⚠️ 超重要！ユーザーIDを必ずメモしてください</h3>
+                <p style="margin-bottom: 15px;">データ引継ぎには<strong>ユーザーID（9桁の数字）</strong>が必要です。</p>
+
+                <div style="background: white; padding: 20px; border-radius: 10px; margin-top: 15px;">
+                    <h4 style="color: #2e7d32; margin-bottom: 10px; font-weight: 600;">📱 ユーザーIDの確認方法</h4>
+                    <div style="text-align: center; margin-top: 15px;">
+                        <img src="images/1092.png" alt="ユーザーID確認方法" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #f8d7da; border: 2px solid #dc3545; border-radius: 10px; padding: 16px; margin: 20px 0; font-size: 1rem; font-weight: 600; color: #721c24;">
+                ❓ ユーザーIDが不明な場合は、アプリ内お問い合わせよりお問い合わせください。
+            </div>
+
+            <div style="background: white; border: 2px solid #2e7d32; border-radius: 10px; padding: 20px; margin: 20px 0;">
+                <h4 style="color: #2e7d32; margin-bottom: 15px; font-size: 1.1rem; font-weight: 600;">✅ 機種変更前のチェックリスト</h4>
+                <div style="padding: 10px; margin-bottom: 8px; background: #f2f2f7; border-radius: 6px; display: flex; align-items: center;">
+                    <input type="checkbox" id="check-before-1" style="width: 20px; height: 20px; margin-right: 12px;">
+                    <label for="check-before-1">ユーザーID（9桁）を知っている</label>
+                </div>
+                <div style="padding: 10px; background: #f2f2f7; border-radius: 6px; display: flex; align-items: center;">
+                    <input type="checkbox" id="check-before-2" style="width: 20px; height: 20px; margin-right: 12px;">
+                    <label for="check-before-2">自分の生年月日を覚えている（アプリに登録した生年月日）</label>
+                </div>
+            </div>
+
+            <!-- データ引継ぎ手順 -->
+            <h3 style="color: #2c3e50; margin: 40px 0 20px 0; font-size: 1.3rem;">🔄 データ引継ぎ手順（全6ステップ）</h3>
+
+            <!-- ステップ1 -->
+            <div style="background: #f8f9fa; border-left: 5px solid #2e7d32; padding: 20px; margin-bottom: 15px; border-radius: 10px;">
+                <div style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 12px;">
+                    <div style="width: 35px; height: 35px; background: linear-gradient(135deg, #4caf50, #2e7d32); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; flex-shrink: 0;">1</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 1.1rem; color: #333; margin-bottom: 8px;">脳にいいアプリをアンインストール（削除）</div>
+                        <p style="color: #555; line-height: 1.6;">新しいスマホに既にアプリをインストール済みの場合は、<strong>脳にいいアプリを一度アンインストール（削除）</strong>してください。</p>
+                        <div style="background: #fff3cd; border: 1px solid #ffc107; padding: 12px; border-radius: 8px; margin-top: 10px; color: #856404;">
+                            <strong>⚠️ 注意：</strong>初期登録画面からしかデータ引継ぎができません。既にアプリを開いてしまった場合は、必ずアンインストールして再インストールしてください。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ステップ2 -->
+            <div style="background: #f8f9fa; border-left: 5px solid #2e7d32; padding: 20px; margin-bottom: 15px; border-radius: 10px;">
+                <div style="display: flex; align-items: flex-start; gap: 15px;">
+                    <div style="width: 35px; height: 35px; background: linear-gradient(135deg, #4caf50, #2e7d32); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; flex-shrink: 0;">2</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 1.1rem; color: #333; margin-bottom: 8px;">脳にいいアプリを再度インストールして起動</div>
+                        <p style="color: #555; line-height: 1.6;">Google PlayまたはApp Storeから「脳にいいアプリ」を検索して、再度インストールしてください。インストール後、アプリを開きます。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ステップ3 -->
+            <div style="background: #f8f9fa; border-left: 5px solid #2e7d32; padding: 20px; margin-bottom: 15px; border-radius: 10px;">
+                <div style="display: flex; align-items: flex-start; gap: 15px;">
+                    <div style="width: 35px; height: 35px; background: linear-gradient(135deg, #4caf50, #2e7d32); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; flex-shrink: 0;">3</div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 600; font-size: 1.1rem; color: #333; margin-bottom: 12px;">「次へ」を7回程タップ</div>
+                        <div style="display: flex; gap: 15px; align-items: flex-start; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 200px;">
+                                <p style="color: #555; line-height: 1.6;">アプリの説明画面が表示されるので、「次へ」ボタンを<strong>7回程</strong>タップして進めます。</p>
+                            </div>
+                            <div style="flex: 1; min-width: 200px; text-align: center; padding: 12px; background: #e5e5ea; border-radius: 8px;">
+                                <p style="color: #666; font-size: 0.9rem; margin-bottom: 8px;">📷 参考画像</p>
+                                <img src="images/step3_next_button.gif" alt="次へボタンを7回タップ" style="max-width: 100%; height: auto; border-radius: 8px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ステップ4 -->
+            <div style="background: #f8f9fa; border-left: 5px solid #2e7d32; padding: 20px; margin-bottom: 15px; border-radius: 10px;">
+                <div style="display: flex; align-items: flex-start; gap: 15px;">
+                    <div style="width: 35px; height: 35px; background: linear-gradient(135deg, #4caf50, #2e7d32); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; flex-shrink: 0;">4</div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 600; font-size: 1.1rem; color: #333; margin-bottom: 12px;">「こちら」をタップ（重要！）</div>
+                        <p style="color: #555; line-height: 1.6; margin-bottom: 12px;">「まずはあなたのことを教えてワン！」という画面が表示されたら...</p>
+                        <div style="background: #fff3cd; border: 1px solid #ffc107; padding: 12px; border-radius: 8px; margin-bottom: 12px; color: #856404;">
+                            <strong>👀 ここが見落としやすいポイント！</strong><br>
+                            画面下部にある<span style="color: #007aff; font-weight: 600;">「こちら」</span>をタップしてください。<br>
+                            <span style="color: #666; font-size: 0.9rem;">表示: 「端末が変わりデータ引継ぎを行いたい方は『<span style="color: #007aff; font-weight: 600;">こちら</span>』」</span>
+                        </div>
+                        <div style="text-align: center; padding: 12px; background: #e5e5ea; border-radius: 8px; margin-bottom: 12px;">
+                            <p style="color: #666; font-size: 0.9rem; margin-bottom: 8px;">📷 参考画像</p>
+                            <img src="images/step4_kochira_button.png?v=2" alt="こちらボタンの位置" style="max-width: 100%; height: auto; border-radius: 8px;">
+                        </div>
+                        <div style="background: #f8d7da; border: 1px solid #dc3545; padding: 12px; border-radius: 8px; color: #721c24;">
+                            <strong>🚫 注意：</strong>この<span style="color: #007aff; font-weight: 600;">「こちら」</span>をタップせずに新規登録を進めてしまうと、最初からやり直しになります。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ステップ5 -->
+            <div style="background: #f8f9fa; border-left: 5px solid #2e7d32; padding: 20px; margin-bottom: 15px; border-radius: 10px;">
+                <div style="display: flex; align-items: flex-start; gap: 15px;">
+                    <div style="width: 35px; height: 35px; background: linear-gradient(135deg, #4caf50, #2e7d32); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; flex-shrink: 0;">5</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 1.1rem; color: #333; margin-bottom: 8px;">ユーザーIDと生年月日を入力</div>
+                        <p style="color: #555; line-height: 1.6; margin-bottom: 10px;">表示された画面で以下を入力します：</p>
+                        <ul style="margin-left: 20px; color: #555; line-height: 1.8;">
+                            <li><strong>旧ユーザーID：</strong>旧スマホでメモした9桁の数字</li>
+                            <li><strong>生年月日：</strong>ご自身の生年月日を入力してください</li>
+                        </ul>
+                        <p style="color: #555; line-height: 1.6; margin-top: 10px;">入力後、画面下の<strong>「次へ」</strong>をタップしてください。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ステップ6 -->
+            <div style="background: #f8f9fa; border-left: 5px solid #2e7d32; padding: 20px; margin-bottom: 15px; border-radius: 10px;">
+                <div style="display: flex; align-items: flex-start; gap: 15px;">
+                    <div style="width: 35px; height: 35px; background: linear-gradient(135deg, #4caf50, #2e7d32); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; flex-shrink: 0;">6</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 1.1rem; color: #333; margin-bottom: 8px;">「データ引継ぎを開始する」をタップ</div>
+                        <p style="color: #555; line-height: 1.6; margin-bottom: 10px;">「データ引継ぎを開始する」ボタンをタップすると、データの復旧が始まります。</p>
+                        <div style="background: #d4edda; border: 1px solid #28a745; padding: 12px; border-radius: 8px; color: #155724;">
+                            <strong>✅ 完了！</strong><br>
+                            復旧が完了すると、以前のデータ（ポイント・歩数・脳トレ記録など）がアプリに反映されます。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 動画 -->
+            <div style="text-align: center; margin: 30px 0; padding: 20px; background: #f2f2f7; border-radius: 10px;">
+                <h4 style="color: #2c3e50; margin-bottom: 12px; font-size: 1.1rem; font-weight: 600;">🎥 操作の流れを動画で確認</h4>
+                <p style="margin-bottom: 16px; color: #666; font-size: 0.9rem;">実際の画面を見ながら確認できます</p>
+                <a href="https://www.youtube.com/watch?v=OTiXsLbxDEI&t=1s" target="_blank" style="display: inline-block; padding: 12px 24px; background: #007aff; color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">
+                    📺 機種変更手順動画を見る
+                </a>
+            </div>
+
+            <!-- トラブルシューティング -->
+            <h3 style="color: #2c3e50; margin: 40px 0 20px 0; font-size: 1.3rem;">🔧 よくあるトラブルと解決方法</h3>
+
+            <!-- Q1 -->
+            <div style="background: #f8f9fa; border-left: 5px solid #dc3545; padding: 20px; margin-bottom: 15px; border-radius: 10px;">
+                <div style="display: flex; align-items: flex-start; gap: 15px;">
+                    <div style="width: 35px; height: 35px; background: #ff3b30; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; flex-shrink: 0;">Q1</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 1.1rem; color: #333; margin-bottom: 8px;">ユーザーIDをメモし忘れた</div>
+                        <p style="color: #555; line-height: 1.6;"><strong>A.</strong> アプリ内お問い合わせよりお問い合わせください。本人確認を行った上で、ユーザーIDを調査いたします。</p>
+                        <p style="color: #666; font-size: 0.9rem; margin-top: 8px;">※調査には時間がかかる場合があります。必ず事前にメモすることをおすすめします。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q2 -->
+            <div style="background: #f8f9fa; border-left: 5px solid #dc3545; padding: 20px; margin-bottom: 15px; border-radius: 10px;">
+                <div style="display: flex; align-items: flex-start; gap: 15px;">
+                    <div style="width: 35px; height: 35px; background: #ff3b30; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; flex-shrink: 0;">Q2</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 1.1rem; color: #333; margin-bottom: 8px;">既に脳にいいアプリをインストールしている場合</div>
+                        <p style="color: #555; line-height: 1.6;"><strong>A.</strong> アプリを一度アンインストール（削除）して、再度インストールしてください。そして<a href="#" onclick="event.preventDefault(); const modal = document.getElementById('device-transfer-modal'); const step1 = modal.querySelector('[style*=\'flex-shrink: 0;\']'); if(step1) step1.scrollIntoView({behavior: 'smooth', block: 'center'});" style="color: #007aff; font-weight: 600; text-decoration: underline;">手順1から実施</a>してください。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q3 -->
+            <div style="background: #f8f9fa; border-left: 5px solid #dc3545; padding: 20px; margin-bottom: 15px; border-radius: 10px;">
+                <div style="display: flex; align-items: flex-start; gap: 15px;">
+                    <div style="width: 35px; height: 35px; background: #ff3b30; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; flex-shrink: 0;">Q3</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 1.1rem; color: #333; margin-bottom: 8px;">データ引継ぎが正常に終了しない場合</div>
+                        <p style="color: #555; line-height: 1.6;"><strong>A.</strong> アプリ内お問い合わせよりお問い合わせください。</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- スライドパズル練習ガイドモーダル -->
+    <div id="slide-puzzle-guide-modal" class="inline-modal" style="display: none; background: white; border-radius: 15px; box-shadow: 0 15px 30px rgba(0,0,0,0.2); margin: 20px auto; overflow: hidden; max-width: 1000px;">
+        <div style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ffd1ff 100%); color: white; padding: 20px; text-align: center; position: relative;">
+            <h2 style="color: white;">🧩 スライドパズル練習ガイド</h2>
+            <button onclick="hideInlineModal('slide-puzzle-guide-modal')" style="position: absolute; top: 15px; right: 20px; background: none; border: none; color: white; font-size: 24px; cursor: pointer;">×</button>
+            <p style="margin: 5px 0 0 0; font-size: 0.9em; opacity: 0.9; color: white;">Assist機能で初めての方でも安心！</p>
+        </div>
+        <div style="padding: 25px;">
+
+            <!-- ステップ1: YouTube動画で学ぶ -->
+            <div style="background: linear-gradient(135deg, #ffe6e6, #ffcccc); border: 3px solid #ff6b9d; border-radius: 15px; padding: 25px; margin-bottom: 20px;">
+                <h3 style="color: #c62828; font-weight: 700; font-size: 1.2rem; margin-bottom: 15px;">📺 ステップ1：まず動画で解き方を学ぶ</h3>
+                <p style="color: #555; line-height: 1.6; margin-bottom: 15px;">実際のアプリでのスライドパズルの解き方を動画で分かりやすく説明しています。</p>
+
+                <div style="background: white; padding: 20px; border-radius: 10px; text-align: center;">
+                    <h4 style="color: #ff6b9d; margin-bottom: 15px; font-weight: 600;">YouTube解説動画のQRコード</h4>
+
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+                        <div style="background: #f0f0f0; padding: 15px; border-radius: 10px; max-width: 300px;">
+                            <img src="images/1048.png" alt="YouTube解説動画QRコード" style="max-width: 100%; height: auto; border-radius: 8px;">
+                        </div>
+
+                        <p style="color: #666; font-size: 0.95rem; margin: 0;">スマホのカメラでQRコードをかざすと、YouTube動画が開きます</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ステップ2: スライドパズルアシストで実践 -->
+            <div style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border: 3px solid #4CAF50; border-radius: 15px; padding: 25px; margin-bottom: 20px;">
+                <h3 style="color: #2e7d32; font-weight: 700; font-size: 1.2rem; margin-bottom: 15px;">🎯 ステップ2：スライドパズルアシストで実践する</h3>
+                <p style="color: #555; line-height: 1.6; margin-bottom: 15px;">動画で学んだら、次はアシストで実際にやってみましょう！</p>
+
+                <!-- スライドパズルアシストの使い方 -->
+                <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                    <h4 style="color: #2e7d32; margin-bottom: 15px; font-weight: 600;">🎯 スライドパズルアシストの使い方</h4>
+
+                    <!-- パターン1: 通常の移動 -->
+                    <div style="background: #f8f9fa; border-left: 5px solid #ff6b9d; padding: 15px; margin-bottom: 15px; border-radius: 8px;">
+                        <div style="font-weight: 600; font-size: 1rem; color: #333; margin-bottom: 10px;">📍 基本的な動かし方</div>
+
+                        <div style="background: #fff3f3; border: 2px solid #ff6b9d; padding: 12px; border-radius: 6px;">
+                            <p style="color: #555; line-height: 1.6; margin-bottom: 8px;"><strong style="color: #ff4444;">🔴 赤く光っているパネル</strong> → これを動かします（常に表示されています）</p>
+                            <p style="color: #555; line-height: 1.6; margin-bottom: 8px;"><strong style="color: #ff4444;">🟥 赤枠の場所</strong> → ここに移動させます</p>
+                            <p style="color: #555; line-height: 1.6; margin: 0;"><strong style="color: #333;">📋 画面下部のメッセージ</strong> → 「①を左上に配置してください」などの指示が表示されます</p>
+                        </div>
+                    </div>
+
+                    <!-- パターン2: 空白を作る -->
+                    <div style="background: #f8f9fa; border-left: 5px solid #2196F3; padding: 15px; border-radius: 8px;">
+                        <div style="font-weight: 600; font-size: 1rem; color: #333; margin-bottom: 10px;">📍 空白にする箇所は青枠で表示されます</div>
+
+                        <div style="background: #e3f2fd; border: 2px solid #2196F3; padding: 12px; border-radius: 6px;">
+                            <p style="color: #555; line-height: 1.6; margin-bottom: 8px;"><strong style="color: #2196F3;">🟦 青枠の場所</strong> → ここを空白にしてください（青枠は動きません）</p>
+                            <p style="color: #555; line-height: 1.6; margin-bottom: 8px;">※この場合、パネルは赤く光りません</p>
+                            <p style="color: #555; line-height: 1.6; margin: 0;"><strong style="color: #333;">📋 画面下部のメッセージ</strong> → 「〇〇を空白にしてください」と表示されます</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QRコード -->
+                <div style="background: white; padding: 20px; border-radius: 10px; text-align: center;">
+                    <h4 style="color: #4CAF50; margin-bottom: 15px; font-weight: 600;">練習ページのQRコード</h4>
+
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+                        <div style="background: #f0f0f0; padding: 15px; border-radius: 10px; max-width: 300px;">
+                            <img src="images/1048_assist.png" alt="スライドパズル練習ページQRコード" style="max-width: 100%; height: auto; border-radius: 8px;">
+                        </div>
+
+                        <p style="color: #666; font-size: 0.95rem; margin: 0;">スマホのカメラでQRコードをかざすと、練習ページが開きます</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #fff3cd; border: 2px solid #ffc107; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center;">
+                <p style="color: #856404; margin: 0; font-weight: 600;">💡 何度も練習すれば、本番のパズルも時間内に解けるようになります！</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- アプリ更新手順モーダル -->
+    <div id="app-update-modal" class="inline-modal" style="display: none; background: white; border-radius: 15px; box-shadow: 0 15px 30px rgba(0,0,0,0.2); margin: 20px auto; overflow: hidden; max-width: 800px;">
+        <div style="background: linear-gradient(135deg, #ff6b6b, #ee5a6f); color: white; padding: 20px; text-align: center; position: relative;">
+            <h2 style="color: white;">📱 アプリ更新時の注意</h2>
+            <button onclick="hideInlineModal('app-update-modal')" style="position: absolute; top: 15px; right: 20px; background: none; border: none; color: white; font-size: 24px; cursor: pointer;">×</button>
+            <p style="margin: 5px 0 0 0; font-size: 0.9em; opacity: 0.9; color: white;">ボタンの変化を確認してください</p>
+        </div>
+        <div style="padding: 30px;">
+
+            <!-- 3段階の流れ -->
+            <div style="margin-bottom: 30px; text-align: center;">
+                <h3 style="color: #333; margin-bottom: 15px;">📋 更新ボタンの変化</h3>
+                <img src="images/1054.png" alt="更新ボタンの変化" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            </div>
+
+            <!-- 実際の画面イメージ -->
+            <div style="margin-bottom: 20px; text-align: center;">
+                <h3 style="color: #333; margin-bottom: 15px;">📱 実際の動作</h3>
+                <img src="images/1054.gif?v=20251007" alt="更新時の実際の画面" style="max-width: 100%; height: auto; border: 2px solid #ddd; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            </div>
+
+            <!-- 注意事項 -->
+            <div style="background: #fff3cd; border: 2px solid #ffc107; padding: 20px; border-radius: 8px; text-align: center;">
+                <p style="color: #856404; margin: 0; font-weight: 600; font-size: 1.1rem;">⚠️「更新」を押したら「開く」が表示されるまで<span style="color: red; font-weight: bold;">絶対に触らないでください</span></p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 開発者向けオプション設定モーダル -->
+    <div id="developer-mode-modal" class="inline-modal" style="display: none; background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.15); margin: 20px auto; overflow: hidden; max-width: 800px;">
+        <div style="background: #2c3e50; color: white; padding: 30px; text-align: center; position: relative;">
+            <h2 style="color: white; font-size: 24px; margin: 0;">開発者モード検知解除手順</h2>
+            <button onclick="hideInlineModal('developer-mode-modal')" style="position: absolute; top: 20px; right: 25px; background: rgba(255,255,255,0.2); border: none; color: white; font-size: 28px; cursor: pointer; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">×</button>
+        </div>
+        <div style="padding: 30px;">
+
+            <!-- 参考画像 -->
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h3 style="color: #333; margin-bottom: 15px; font-weight: 600;">参考画像</h3>
+                <img src="images/1006.png" alt="開発者向けオプション設定画面" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            </div>
+
+            <!-- エラー説明 -->
+            <div style="background: linear-gradient(135deg, #fff8e1, #ffecb3); border-left: 4px solid #ffa726; padding: 25px; border-radius: 12px; margin-bottom: 30px;">
+                <h3 style="color: #e65100; margin-bottom: 12px; font-weight: 600; font-size: 18px;">⚠️ このエラーが表示される理由</h3>
+                <p style="color: #6d4c41; margin: 0; line-height: 1.7; font-size: 15px;">Android端末の「開発者向けオプション」で「USBデバッグ」がオンになっていると、このエラーが表示されます。以下の手順でオフに設定してください。</p>
+            </div>
+
+            <!-- 開発者向けオプションの表示方法 -->
+            <div style="background: #f5f5f5; padding: 25px; border-radius: 12px; margin-bottom: 30px;">
+                <h3 style="color: #424242; margin-bottom: 15px; font-weight: 600; font-size: 18px;">📖 開発者向けオプションの表示方法（通常は非表示）</h3>
+                <p style="color: #616161; margin-bottom: 20px; line-height: 1.7; font-size: 15px;">「開発者向けオプション」は通常、設定画面に表示されていません。以下の手順で表示させることができます</p>
+
+                <!-- ボタン選択 -->
+                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                    <button onclick="showDeviceType('normal')" id="btn-normal" style="flex: 1; padding: 12px 20px; background: #1976d2; color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer;">📱 通常のAndroid端末</button>
+                    <button onclick="showDeviceType('xiaomi')" id="btn-xiaomi" style="flex: 1; padding: 12px 20px; background: #e0e0e0; color: #616161; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer;">📱 Xiaomi (MIUI)</button>
+                </div>
+
+                <!-- 通常の場合 -->
+                <div id="device-normal" style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #e0e0e0;">
+                    <h4 style="color: #1976d2; margin-bottom: 15px; font-weight: 600; font-size: 16px;">📱 通常のAndroid端末の場合</h4>
+                    <ol style="margin-left: 20px; color: #424242; line-height: 2;">
+                        <li>スマートフォンの<strong>⚙️設定</strong>を開く</li>
+                        <li><strong>「デバイス情報」</strong>または<strong>「端末情報」</strong>をタップ</li>
+                        <li><strong>「ビルド番号」</strong>を<strong style="color: #d32f2f;">7回連続でタップ</strong></li>
+                        <li>「デベロッパーになりました」というメッセージが表示される</li>
+                        <li>⚙️設定画面に戻ると「開発者向けオプション」が表示される</li>
+                    </ol>
+                    <div style="margin-top: 15px; background: #e3f2fd; border-left: 4px solid #1976d2; padding: 12px 15px; border-radius: 6px;">
+                        <p style="color: #0d47a1; font-size: 15px; margin: 0; font-weight: 600;">💡 ビルド番号が見つからない場合は、⚙️設定画面上部の検索バーに「ビルド」と入力してください</p>
+                    </div>
+                </div>
+
+                <!-- Xiaomi (MIUI)の場合 -->
+                <div id="device-xiaomi" style="display: none; background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #ff6900;">
+                    <h4 style="color: #ff6900; margin-bottom: 15px; font-weight: 600; font-size: 16px;">📱 Xiaomi (MIUI) の場合</h4>
+                    <ol style="margin-left: 20px; color: #424242; line-height: 2;">
+                        <li>スマートフォンの<strong>⚙️設定</strong>を開く</li>
+                        <li><strong>「デバイス情報」</strong>をタップ</li>
+                        <li><strong>「MIUIバージョン」</strong>を<strong style="color: #d32f2f;">7回連続でタップ</strong></li>
+                        <li>「あなたは開発者になりました！」というメッセージが表示される</li>
+                        <li>⚙️設定＞追加設定の中に「開発者向けオプション」が表示される</li>
+                    </ol>
+                    <div style="margin-top: 15px; background: #fff3e0; border-left: 4px solid #ff6900; padding: 12px 15px; border-radius: 6px;">
+                        <p style="color: #e65100; font-size: 14px; margin: 0; font-weight: 600;">💡 MIUIバージョンが見つからない場合、⚙️設定の検索バーに「MIUI」と入力してください</p>
+                    </div>
+                </div>
+
+                <p style="color: #666; font-size: 0.9rem; margin-top: 10px;">※既に「開発者向けオプション」が表示されている場合は、この手順は不要です</p>
+            </div>
+
+            <script>
+            function showDeviceType(type) {
+                if (type === 'normal') {
+                    document.getElementById('device-normal').style.display = 'block';
+                    document.getElementById('device-xiaomi').style.display = 'none';
+                    document.getElementById('btn-normal').style.background = '#1976d2';
+                    document.getElementById('btn-normal').style.color = 'white';
+                    document.getElementById('btn-xiaomi').style.background = '#e0e0e0';
+                    document.getElementById('btn-xiaomi').style.color = '#616161';
+                } else {
+                    document.getElementById('device-normal').style.display = 'none';
+                    document.getElementById('device-xiaomi').style.display = 'block';
+                    document.getElementById('btn-normal').style.background = '#e0e0e0';
+                    document.getElementById('btn-normal').style.color = '#616161';
+                    document.getElementById('btn-xiaomi').style.background = '#ff6900';
+                    document.getElementById('btn-xiaomi').style.color = 'white';
+                }
+            }
+            </script>
+
+            <!-- 手順1: 開発者向けオプションを開く -->
+            <div style="background: white; border-left: 4px solid #1976d2; padding: 25px; margin-bottom: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                <h3 style="color: #1976d2; margin-bottom: 15px; font-weight: 600; font-size: 18px;">📱 手順1：開発者向けオプションを開く</h3>
+                <ol style="margin-left: 20px; color: #424242; line-height: 2;">
+                    <li>スマートフォンの<strong>⚙️設定</strong>を開く</li>
+                    <li><strong>「システム」</strong>をタップ</li>
+                    <li><strong>「開発者向けオプション」</strong>をタップ</li>
+                </ol>
+                <p style="color: #757575; font-size: 14px; margin-top: 12px; background: #f5f5f5; padding: 10px; border-radius: 6px;">※機種によっては⚙️設定＞その他の設定＞開発者向けオプションの場合もあります</p>
+                <div style="margin-top: 15px; background: #e3f2fd; border-left: 4px solid #1976d2; padding: 12px 15px; border-radius: 6px;">
+                    <p style="color: #0d47a1; font-size: 15px; margin: 0; font-weight: 600;">💡 開発者向けオプションが見つからない場合は、⚙️設定の検索バーに「開発」と入力して開発者向けオプションを選択してください</p>
+                </div>
+            </div>
+
+            <!-- 手順2: USBデバッグをオフにする -->
+            <div style="background: white; border-left: 4px solid #388e3c; padding: 25px; margin-bottom: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                <h3 style="color: #388e3c; margin-bottom: 15px; font-weight: 600; font-size: 18px;">🔧 手順2：USBデバッグをオフにする</h3>
+                <ol style="margin-left: 20px; color: #424242; line-height: 2;">
+                    <li>開発者向けオプション内で<strong>USBデバッグの項目をオフ</strong>にする</li>
+                    <li>⚙️設定を閉じて、アプリに戻る</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- QRコード読み込み確認モーダル -->
+    <div id="qr-test-modal" class="inline-modal" style="display: none; background: white; border-radius: 15px; box-shadow: 0 15px 30px rgba(0,0,0,0.2); margin: 20px auto; overflow: hidden; max-width: 600px;">
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; text-align: center; position: relative;">
+            <h2 style="color: white;">📱 QRコード読み込み確認</h2>
+            <button onclick="hideInlineModal('qr-test-modal')" style="position: absolute; top: 15px; right: 20px; background: none; border: none; color: white; font-size: 24px; cursor: pointer;">×</button>
+            <p style="margin: 5px 0 0 0; font-size: 0.9em; opacity: 0.9; color: white;">端末設定が正しいかテストできます</p>
+        </div>
+        <div style="padding: 30px; text-align: center;">
+
+            <p style="color: #555; line-height: 1.8; margin-bottom: 25px; font-size: 1rem;">このQRコードを読み取って、正しく設定されているか確認しましょう</p>
+
+            <!-- QRコード -->
+            <div style="background: #f0f0f0; padding: 20px; border-radius: 10px; margin-bottom: 25px; display: inline-block;">
+                <img src="images/1107_test.png" alt="QRコード読み込み確認用" style="max-width: 300px; width: 100%; height: auto; border-radius: 8px;">
+            </div>
+
+            <!-- 確認方法 -->
+            <div style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border: 3px solid #4CAF50; border-radius: 15px; padding: 20px; text-align: left;">
+                <h3 style="color: #2e7d32; margin-bottom: 15px; font-weight: 600; text-align: center;">✅ 確認方法</h3>
+                <p style="color: #555; line-height: 1.8; margin: 0; font-size: 1rem;">QRコードを読み取って<br><strong style="color: #2e7d32; font-size: 1.1rem;">「QRコードの有効期限が切れています」</strong><br>の文字が表示されれば<strong style="color: #2e7d32;">正しい設定</strong>になっています。</p>
+            </div>
+
+            <div style="background: #fff3cd; border: 2px solid #ffc107; padding: 15px; border-radius: 8px; margin-top: 20px;">
+                <p style="color: #856404; margin: 0; font-size: 0.9rem;">💡 この文字が表示されない場合は、対処手順を確認してください</p>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
