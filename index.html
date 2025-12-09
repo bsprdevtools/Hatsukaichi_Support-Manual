@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>脳にいいアプリ FAQ</title>
+
+    <!-- PWA Configuration -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#007aff">
+    <link rel="apple-touch-icon" href="icons/hatsukaichi-icon-192.png">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -80,6 +85,10 @@
             border: 2px solid transparent;
             background: #ffffff;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-width: 0;
         }
         .tab:hover {
             background: #f8f9fa;
@@ -1325,6 +1334,17 @@
     </div>
   </div>
 </div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-79')">
+    <div class="faq-question-text">アプリに生年月日を登録しましたが、何に使いますか？はつポ登録時にも入力したはずですが、違うものなのでしょうか？ <span style="color: #999; font-size: 0.8em;">#1080</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-79')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-79">
+    <div class="answer-content">アプリのデータ引継ぎには生年月日の登録が必要で、はつポの申込情報は廿日市市でのみ管理され、開発会社には提供されていません。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
   <div class="faq-question" onclick="toggleFAQ('faq-80')">
     <div class="faq-question-text">アプリのバージョンは自動で更新されますか？ <span style="color: #999; font-size: 0.8em;">#1081</span></div>
     <div style="display: flex; align-items: center;">
@@ -1356,6 +1376,17 @@
   </div>
   <div class="faq-answer" id="answer-faq-82">
     <div class="answer-content">はつポ申込時の情報や本人確認書類の画像は廿日市市のみで管理され、アプリ会社には提供されず、確認後は市で削除されます。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-83')">
+    <div class="faq-question-text">認知機能テストとは何ですか？ <span style="color: #999; font-size: 0.8em;">#1084</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-83')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-83">
+    <div class="answer-content">記憶力や判断力を測定するテストです。</div>
   </div>
 </div><div class="faq-item" data-category="全般・各種設定・ポイント">
   <div class="faq-question" onclick="toggleFAQ('faq-85')">
@@ -1445,6 +1476,20 @@
     </div>
   </div>
 </div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-95')">
+    <div class="faq-question-text">アプリの操作について質問したいのですが、電話以外の問い合わせ方法はありますか？ <span style="color: #999; font-size: 0.8em;">#1096</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-95')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-95">
+    <div class="answer-content">電話以外の問い合わせ方法として、アプリ内の「お問い合わせ」機能（回答はアプリのお知らせに届きます）があります。</div>
+    <div class="answer-links">
+      <button onclick="openImageModal('images/1096.png')" class="answer-link">📷 参考画像</button>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
   <div class="faq-question" onclick="toggleFAQ('faq-96')">
     <div class="faq-question-text">アプリ内から問い合わせをしました。どこに回答が届きますか？ <span style="color: #999; font-size: 0.8em;">#1097</span></div>
     <div style="display: flex; align-items: center;">
@@ -1467,7 +1512,35 @@
     </div>
   </div>
   <div class="faq-answer" id="answer-faq-99">
-    <div class="answer-content">スターは全ユーザーが利用できる標準機能。廿日市市では別途、はつポ登録者向けに「はつポポイント」を導入しており、スターとはつポポイントは別物で、付与ルールも異なる。</div>
+    <div class="answer-content">スターは全ユーザーが利用できる標準機能。200スターで認知機能テストチケット１枚と交換できます。廿日市市では別途、はつポ登録者向けに「はつポポイント」を導入しており、スターとはつポポイントは別物で、付与ルールも異なる。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-100')">
+    <div class="faq-question-text">PayPayの登録方法がわかりません。 <span style="color: #999; font-size: 0.8em;">#1101</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-100')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-100">
+    <div class="answer-content">PayPay公式サイト参照。PayPayアプリのインストールとアカウント登録が必要。銀行口座・本人確認・チャージは不要。</div>
+    <div class="answer-links">
+      <a href="https://paypay.ne.jp/guide/start/" target="_blank" class="answer-link">🔗 PayPay公式サイト</a>
+    </div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-101')">
+    <div class="faq-question-text">PayPayの交換方法がわかりません。 <span style="color: #999; font-size: 0.8em;">#1102</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-101')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-101">
+    <div class="answer-content">ポイント交換は数秒で完了します。表示されない場合は、PayPayアプリの「支払う」をタップし、「PayPayポイント」にチェックが入っているか確認してください。</div>
+    <div class="answer-links">
+      <a href="https://www.city.hatsukaichi.hiroshima.jp/uploaded/attachment/87494.pdf" target="_blank" class="answer-link">📄 PayPay交換手順PDF</a>
+    </div>
   </div>
 </div><div class="faq-item" data-category="全般・各種設定・ポイント">
   <div class="faq-question" onclick="toggleFAQ('faq-105')">
@@ -1479,6 +1552,20 @@
   </div>
   <div class="faq-answer" id="answer-faq-105">
     <div class="answer-content">スターは全ユーザーが利用できる標準機能。廿日市市では別途、はつポ登録者向けに「はつポポイント」を導入しており、スターとはつポポイントは別物で、付与ルールも異なる。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-106')">
+    <div class="faq-question-text">イベントQRコード読み取り後に携帯会社のポータルサイトやアプリのインストール画面に遷移し、ポイントが付与されません。 <span style="color: #999; font-size: 0.8em;">#1107</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-106')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-106">
+    <div class="answer-content">Playストアから利用可能なアップデートアプリ一覧から「Chrome」と「Android System WebView」を更新して下さい。BASIO・Galaxy端末を使用されている方は、更新操作に加え本体で設定が必要な場合がございます。</div>
+    <div class="answer-links">
+      <button onclick="openImageModal('images/1051.png')" class="answer-link">📷 参考画像</button>
+    </div>
   </div>
 </div><div class="faq-item" data-category="全般・各種設定・ポイント">
   <div class="faq-question" onclick="toggleFAQ('faq-107')">
@@ -1522,7 +1609,7 @@
     </div>
   </div>
   <div class="faq-answer" id="answer-faq-112">
-    <div class="answer-content">アプリホーム画面「はつポ情報」＞「はつポ情報」（画面下部）から確認可能。ポイント履歴は削除できず、履歴によるデータ容量増加もない。</div>
+    <div class="answer-content">アプリホーム画面「はつポ情報」＞「ｐはつポ情報」（画面下部）から確認可能。ポイント履歴は削除できず、サーバー上にデータがあるためスマホ容量増加の心配はない。</div>
   </div>
 </div><div class="faq-item" data-category="機種変更・データ引継ぎ・退会">
   <div class="faq-question" onclick="toggleFAQ('faq-118')">
@@ -1537,6 +1624,28 @@
     <div class="answer-links">
       <button onclick="showInlineModal('device-transfer-modal')" class="answer-link">📱 機種変更ガイドを見る</button>
     </div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-119')">
+    <div class="faq-question-text">間違えてアプリを消してしまいました。 <span style="color: #999; font-size: 0.8em;">#1120</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-119')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-119">
+    <div class="answer-content">引継ぎはデータ引継ぎ機能の使用が推奨で、ユーザーIDがあれば全データを即時復元可能。既に新機種にインストール済みの場合は再インストールが必要。一方、新機種から再申込する方法（非推奨）は、本人確認書類が必要でポイントのみ引継ぎ可、歩数などは不可で数日かかる。</div>
+  </div>
+</div><div class="faq-item" data-category="全般・各種設定・ポイント">
+  <div class="faq-question" onclick="toggleFAQ('faq-120')">
+    <div class="faq-question-text">誤ってアプリを消すまたは機種変更などでアプリを入れなおしたら以前のデータが消えてしまいました。 <span style="color: #999; font-size: 0.8em;">#1121</span></div>
+    <div style="display: flex; align-items: center;">
+      <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('faq-120')" title="お気に入りに登録">お気に入り登録</button>
+      <span class="faq-icon">▼</span>
+    </div>
+  </div>
+  <div class="faq-answer" id="answer-faq-120">
+    <div class="answer-content">引継ぎはデータ引継ぎ機能の使用が推奨で、ユーザーIDがあれば全データを即時復元可能。既に新機種にインストール済みの場合は再インストールが必要。一方、新機種から再申込する方法（非推奨）は、本人確認書類が必要でポイントのみ引継ぎ可、歩数などは不可で数日かかる。</div>
   </div>
 </div>
     </div>
@@ -1991,6 +2100,19 @@
             const firstTab = document.querySelector(".tab");
             if (firstTab) filterFAQ(firstTab.textContent.trim(), firstTab);
         });
+
+        // Service Worker登録
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registered:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
     </script>
 
     <div id="imageModal">
