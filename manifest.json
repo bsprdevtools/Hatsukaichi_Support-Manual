@@ -2,11 +2,14 @@
   "name": "脳にいいアプリ FAQ - 廿日市市",
   "short_name": "廿日市市FAQ",
   "description": "廿日市市版 脳にいいアプリ サポートマニュアル",
-  "start_url": "./index.html",
+  "lang": "ja",
+  "dir": "ltr",
+  "start_url": "/Hatsukaichi_Support-Manual/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#007aff",
   "orientation": "portrait-primary",
+  "categories": ["health", "lifestyle", "productivity"],
   "icons": [
     {
       "src": "hatsukaichi-icon-192.png",
