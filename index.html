@@ -608,6 +608,130 @@
                 min-height: 42px;
             }
         }
+
+        /* 簡単解決ガイドのスタイル */
+        .quick-guide {
+            background: #ffffff;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+        .quick-guide-header {
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+            padding: 18px 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.2s;
+        }
+        .quick-guide-header:hover {
+            background: linear-gradient(135deg, #5a6578 0%, #3d4758 100%);
+        }
+        .quick-guide-title {
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 0.3px;
+        }
+        .quick-guide-toggle {
+            background: rgba(255,255,255,0.12);
+            color: #ffffff;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 700;
+            transition: all 0.3s;
+            border: 1.5px solid rgba(255,255,255,0.25);
+        }
+        .quick-guide-toggle::after {
+            content: "−";
+        }
+        .quick-guide.collapsed .quick-guide-toggle::after {
+            content: "+";
+        }
+        .quick-guide-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            max-height: 1500px;
+            padding: 24px;
+            background: #ffffff;
+        }
+        .quick-guide.collapsed .quick-guide-content {
+            max-height: 0;
+            padding: 0 24px;
+        }
+        .quick-guide-cards {
+            display: grid;
+            gap: 16px;
+        }
+        .quick-card {
+            background: #ffffff;
+            border: 1px solid #dce3eb;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(44, 90, 160, 0.08);
+            border-left: 4px solid #2c5aa0;
+        }
+        .quick-card-label {
+            display: inline-block;
+            font-size: 11px;
+            color: #2c5aa0;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            background: #eef4fb;
+            padding: 5px 12px;
+            border-radius: 4px;
+        }
+        .quick-card-problem {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a365d;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        .quick-card-solution {
+            font-size: 15px;
+            color: #2d4a6f;
+            margin-bottom: 18px;
+            padding: 14px 16px;
+            background: linear-gradient(135deg, #f7fafc 0%, #eef4fb 100%);
+            border-radius: 8px;
+            font-weight: 600;
+            border: 1px solid #d4e2f0;
+        }
+        .quick-card-btn {
+            background: linear-gradient(135deg, #2c5aa0 0%, #1e4080 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 6px rgba(44, 90, 160, 0.25);
+        }
+        .quick-card-btn:hover {
+            background: linear-gradient(135deg, #1e4080 0%, #163060 100%);
+            box-shadow: 0 4px 10px rgba(44, 90, 160, 0.35);
+        }
+        .quick-guide-footer {
+            text-align: center;
+            padding-top: 18px;
+            margin-top: 18px;
+            border-top: 1px solid #dce3eb;
+            color: #4a6785;
+            font-size: 14px;
+            font-weight: 600;
+        }
     </style>
 
     <!-- PWA Configuration -->
@@ -631,53 +755,26 @@
         </div>
         <!-- 簡単解決ガイド -->
         <div class="quick-guide collapsed" id="quickGuide">
-            <div class="quick-guide-title" onclick="toggleQuickGuide()">
-                <span>⚡</span>
-                <span>主な対処方法・手順</span>
-                <span>⚡</span>
+            <div class="quick-guide-header" onclick="toggleQuickGuide()">
+                <span class="quick-guide-title">よくあるトラブルの解決方法</span>
+                <span class="quick-guide-toggle"></span>
             </div>
             <div class="quick-guide-content">
-            <div class="quick-guide-subtitle">よくある問題のほとんどが、以下の3つの方法で解決できます</div>
-
-            <div class="quick-solutions">
-                <div class="quick-solution-item">
-                    <div class="quick-solution-number">1</div>
-                    <div class="quick-solution-content">
-                        <div class="quick-solution-problem">アプリの動作に問題がある場合・端末が反応しない・フリーズした場合</div>
-                        <div class="quick-solution-method">
-                            <span class="quick-solution-action">→ まずは端末の再起動を実施してください</span>
-                            <button onclick="openHtmlModal('Android端末電源切る方法.html', event)" class="quick-solution-link">📱 再起動手順を見る</button>
-                        </div>
+                <div class="quick-guide-cards">
+                    <div class="quick-card">
+                        <div class="quick-card-label">症状</div>
+                        <div class="quick-card-problem">歩数がカウントされない</div>
+                        <div class="quick-card-solution">→ バッテリー最適化をオフにする</div>
+                        <button onclick="openHtmlModal('battery-optimizer-simple.html', event)" class="quick-card-btn">手順を確認</button>
+                    </div>
+                    <div class="quick-card">
+                        <div class="quick-card-label">症状</div>
+                        <div class="quick-card-problem">画面表示が崩れる・正常に表示されない</div>
+                        <div class="quick-card-solution">→ Chrome・WebViewを更新 + 標準ブラウザをChromeに設定</div>
+                        <button onclick="openHtmlModal('chrome-update-guide.html', event)" class="quick-card-btn">手順を確認</button>
                     </div>
                 </div>
-                
-                <div class="quick-solution-item">
-                    <div class="quick-solution-number">2</div>
-                    <div class="quick-solution-content">
-                        <div class="quick-solution-problem">歩数がカウントされない</div>
-                        <div class="quick-solution-method">
-                            <span class="quick-solution-action">→ 最適化設定をオフにしてください　例：1024</span>
-                            <button onclick="openHtmlModal('battery-optimizer-simple.html', event)" class="quick-solution-link">📖 最適化設定手順を見る</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="quick-solution-item">
-                    <div class="quick-solution-number">3</div>
-                    <div class="quick-solution-content">
-                        <div class="quick-solution-problem">画面表示が崩れる・正常に表示されない</div>
-                        <div class="quick-solution-method">
-                            <span class="quick-solution-action">→ Chrome・Android System WebView を更新 + 標準ブラウザをChromeに設定　例：1107</span>
-                            <button onclick="openHtmlModal('chrome-update-guide.html', event)" class="quick-solution-link">🖥️ Chrome設定手順を見る</button>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-            
-            <div class="escalation-note">
-                💡 問題が解消しない場合、ベスプラへ連絡してください
-            </div>
+                <div class="quick-guide-footer">解決しない場合はベスプラへご連絡ください</div>
             </div>
         </div>
 
