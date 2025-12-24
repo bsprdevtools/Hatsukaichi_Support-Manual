@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hatsukaichi-faq-v3';
+const CACHE_NAME = 'hatsukaichi-faq-v3.1';
 const urlsToCache = [
   './index.html',
   './manifest.json',
@@ -15,46 +15,52 @@ self.addEventListener('install', event => {
         return cache.addAll(urlsToCache);
       })
   );
+  // 即座にアクティブ化
+  self.skipWaiting();
 });
 
 // フェッチ時の処理（ネットワークファーストストラテジー）
 self.addEventListener('fetch', event => {
   event.respondWith(
-    // まずネットワークから取得を試みる
     fetch(event.request)
       .then(response => {
-        // 有効なレスポンスかチェック
-        if (!response || response.status !== 200) {
-          // ネットワークエラーの場合はキャッシュから返す
-          return caches.match(event.request);
+        // 有効なレスポンスの場合のみキャッシュに保存
+        if (response && response.status === 200) {
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME)
+            .then(cache => {
+              cache.put(event.request, responseToCache);
+            });
         }
-        // 新しいレスポンスをキャッシュに保存
-        const responseToCache = response.clone();
-        caches.open(CACHE_NAME)
-          .then(cache => {
-            cache.put(event.request, responseToCache);
-          });
         return response;
       })
       .catch(() => {
-        // ネットワークに接続できない場合はキャッシュから返す
-        return caches.match(event.request);
+        // ネットワークエラー時はキャッシュから返す
+        return caches.match(event.request).then(cachedResponse => {
+          return cachedResponse || new Response('オフラインです', {
+            status: 503,
+            statusText: 'Service Unavailable'
+          });
+        });
       })
   );
 });
 
 // 古いキャッシュを削除
 self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
+          if (cacheName !== CACHE_NAME) {
+            console.log('古いキャッシュを削除:', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
+    }).then(() => {
+      // 即座にクライアントを制御
+      return self.clients.claim();
     })
   );
 });
