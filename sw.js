@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hatsukaichi-faq-v2';
+const CACHE_NAME = 'hatsukaichi-faq-v3';
 const urlsToCache = [
   './index.html',
   './manifest.json',
@@ -17,32 +17,28 @@ self.addEventListener('install', event => {
   );
 });
 
-// リクエスト時にキャッシュから返す
+// フェッチ時の処理（ネットワークファーストストラテジー）
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request)
+    // まずネットワークから取得を試みる
+    fetch(event.request)
       .then(response => {
-        // キャッシュにあればそれを返す、なければネットワークから取得
-        if (response) {
-          return response;
+        // 有効なレスポンスかチェック
+        if (!response || response.status !== 200) {
+          // ネットワークエラーの場合はキャッシュから返す
+          return caches.match(event.request);
         }
-        return fetch(event.request).then(
-          response => {
-            // 有効なレスポンスかチェック
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-
-            // レスポンスをクローンしてキャッシュに保存
-            const responseToCache = response.clone();
-            caches.open(CACHE_NAME)
-              .then(cache => {
-                cache.put(event.request, responseToCache);
-              });
-
-            return response;
-          }
-        );
+        // 新しいレスポンスをキャッシュに保存
+        const responseToCache = response.clone();
+        caches.open(CACHE_NAME)
+          .then(cache => {
+            cache.put(event.request, responseToCache);
+          });
+        return response;
+      })
+      .catch(() => {
+        // ネットワークに接続できない場合はキャッシュから返す
+        return caches.match(event.request);
       })
   );
 });
