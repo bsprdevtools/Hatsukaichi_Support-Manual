@@ -2284,6 +2284,44 @@
                     <h3 style="color: #4caf50; font-size: 1.5rem; margin-bottom: 15px;">設定完了！</h3>
                     <p style="color: #666; font-size: 1.1rem; margin-bottom: 25px;">アプリを再起動してお試しください</p>
                     <button onclick="hideInlineModal('chrome-modal'); resetChromeWizard();" style="background: #4caf50; color: white; border: none; padding: 15px 50px; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer;">閉じる</button>
+                    <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e0e0e0;">
+                        <button onclick="showChromeStep('chrome-alternative')" style="background: #ff9800; color: white; border: none; padding: 12px 30px; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer;">それでも解決しない場合</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 代替手順：標準ブラウザを変更 -->
+            <div id="chrome-alternative" class="chrome-wizard-step" style="display: none;">
+                <div style="margin-bottom: 20px;">
+                    <button onclick="showChromeStep('chrome-complete')" style="background: none; border: none; color: #666; cursor: pointer; font-size: 1rem;">← 戻る</button>
+                </div>
+                <div style="text-align: center; margin-bottom: 25px;">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">🔄</div>
+                    <h3 style="color: #ff9800; font-size: 1.4rem; margin: 0 0 10px 0;">標準ブラウザをChrome以外に変更</h3>
+                    <p style="color: #666; font-size: 1rem;">Chromeで解決しない場合、別のブラウザを試してみてください</p>
+                </div>
+
+                <div style="background: #fff3e0; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+                    <h4 style="color: #e65100; margin-bottom: 15px; font-weight: 600;">📱 標準ブラウザの変更手順</h4>
+                    <div style="margin: 10px 0; padding: 12px 15px; background: white; border-left: 4px solid #ff9800; border-radius: 6px; font-size: 1rem;"><strong>1.</strong> 「設定」アプリを開く</div>
+                    <div style="margin: 10px 0; padding: 12px 15px; background: white; border-left: 4px solid #ff9800; border-radius: 6px; font-size: 1rem;"><strong>2.</strong> 「アプリ」をタップ</div>
+                    <div style="margin: 10px 0; padding: 12px 15px; background: white; border-left: 4px solid #ff9800; border-radius: 6px; font-size: 1rem;"><strong>3.</strong> 「デフォルトのアプリ」をタップ</div>
+                    <div style="margin: 10px 0; padding: 12px 15px; background: white; border-left: 4px solid #ff9800; border-radius: 6px; font-size: 1rem;"><strong>4.</strong> 「ブラウザアプリ」をタップ</div>
+                    <div style="margin: 10px 0; padding: 12px 15px; background: white; border-left: 4px solid #ff9800; border-radius: 6px; font-size: 1rem;"><strong>5.</strong> <span style="background: #9c27b0; color: white; padding: 2px 8px; border-radius: 4px;">Chrome以外</span> を選択（例：Firefox、Edge、Samsung Internet など）</div>
+                </div>
+
+                <div style="background: #e3f2fd; border: 2px solid #2196f3; border-radius: 12px; padding: 15px; margin-bottom: 20px;">
+                    <h4 style="color: #1565c0; margin-bottom: 10px; font-weight: 600;">💡 おすすめの代替ブラウザ</h4>
+                    <ul style="margin: 0; padding-left: 20px; color: #1565c0; line-height: 1.8;">
+                        <li><strong>Firefox</strong> - 軽量で安定</li>
+                        <li><strong>Microsoft Edge</strong> - Chromeと互換性が高い</li>
+                        <li><strong>Yahoo!ブラウザ</strong> - シンプルで使いやすい</li>
+                    </ul>
+                    <p style="color: #666; font-size: 0.9rem; margin-top: 10px;">※Playストアから無料でダウンロードできます</p>
+                </div>
+
+                <div style="text-align: center;">
+                    <button onclick="hideInlineModal('chrome-modal'); resetChromeWizard();" style="background: #ff9800; color: white; border: none; padding: 15px 40px; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer;">閉じる</button>
                 </div>
             </div>
         </div>
